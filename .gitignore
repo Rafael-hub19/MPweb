@@ -1,0 +1,55 @@
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs y editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Dependencias (si usas Composer)
+/vendor/
+composer.phar
+
+# Dependencias (si usas Node.js)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Archivos de configuración locales
+.env
+config.local.php
+*.local.php
+
+# Archivos de base de datos
+*.sql
+*.sqlite
+*.db
+
+# Logs
+*.log
+/logs/
+/log/
+
+# Archivos temporales y cache
+/tmp/
+/temp/
+/cache/
+*.tmp
+*.cache
+
+# Archivos subidos por usuarios
+/uploads/
+/files/
+
+# Backups
+*.bak
+*.backup
+*~
+
+# Archivos compilados o generados
+*.min.js
+*.min.css
