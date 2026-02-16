@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Entregas - CETI</title>
+    
+    <!-- CSS en orden correcto: variables → styles → específico -->
+    <link rel="stylesheet" href="public/assets/css/_variables.css">
+    <link rel="stylesheet" href="public/assets/css/styles.css">
+    <link rel="stylesheet" href="public/assets/css/index.css">
+</head>
+
+<body>
+    <!-- Logo Global -->
+    <div class="logo-container">
+        <img src="public/assets/img/logo-ceti.png" alt="Logo CETI" class="logo-img">
+    </div>
+
+    <main class="wrap">
+        <section class="top">
+            <div class="title">
+                <h1>CENTRO DE ENSEÑANZA TÉCNICA INDUSTRIAL</h1>
+                <h2>Panel de Entregas • Programación Web</h2>
+            </div>
+
+            <div class="meta">
+                <div class="name">Esteban Rafael Avila Sanchez</div>
+                <div class="row">Registro: <code>22300193</code></div>
+                <div class="row">Grupo: <code>8F</code></div>
+                <div class="row">Servidor: <code>proyectosinformaticatnl.ceti.mx</code></div>
+                <div class="row">Ruta: <code>/datos/sitios/mueblesweb</code></div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <p class="hint">
+            Selecciona una materia para ver sus accesos. Aquí puedes entrar al <b>Proyecto</b> o a las <b>Prácticas</b> desde una sola interfaz.
+        </p>
+
+        <!-- MENÚ PRINCIPAL -->
+        <section class="main-menu" aria-label="Menú principal">
+            <!-- Card WEB 1 -->
+            <div class="card">
+                <div class="card-top">
+                    <div class="icon">💻</div>
+                    <div>
+                        <h3>Programación Web 1</h3>
+                        <p>Accede a proyecto y prácticas de la materia WEB1.</p>
+                        <a href="public/WEB1/web1.html" class="card-link">Ir al menú de Programación Web 1 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card WEB 2 -->
+            <div class="card">
+                <div class="card-top">
+                    <div class="icon">🧩</div>
+                    <div>
+                        <h3>Programación Web 2</h3>
+                        <p>Accede a proyecto y prácticas de la materia WEB2.</p>
+                        <a href="public/WEB2/web2.html" class="card-link">Ir al menú de Programación Web 2 →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="footer">
+            <div>💡 Tip: Si alguna ruta no abre, revisa el nombre real de la carpeta en el servidor (mayúsculas/minúsculas).</div>
+            <button class="btn" type="button" id="btn-reload">🔄 Recargar</button>
+        </div>
+    </main>
+
+    <script src="public/assets/js/index.js"></script>
+</body>
+</html>

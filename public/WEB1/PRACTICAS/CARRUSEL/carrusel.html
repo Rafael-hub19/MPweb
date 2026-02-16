@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Motos - CETI</title>
+    <link rel="stylesheet" href="../../../assets/css/carrusel.css">
+    <link rel="stylesheet" href="../../../assets/css/styles.css">
+    <link rel="stylesheet" href="../../../assets/css/_variables.css">
+</head>
+<body>
+    <a href="../../web1.html" class="back-button">← Regresar al menú</a>
+
+    <div class="logo-container">
+        <img src="../../../assets/img/logo-ceti.png" alt="Logo CETI" class="logo-img">
+    </div>
+
+    <div class="container">
+        <h1>🏍️ GALERÍA DE MOTOCICLETAS</h1>
+        <div class="divider"></div>
+        <p class="subtitle">Colección de Motos Deportivas</p>
+
+        <div class="carousel-container">
+            <div class="carousel-wrapper" id="carouselWrapper">
+                <div class="carousel-slide">
+                    <img src="../../../assets/img/moto_ninja400.jpg" alt="Moto Ninja 400" class="carousel-image">
+                    <div class="carousel-caption">
+                        <div class="carousel-title">Kawasaki Ninja 400</div>
+                        <div class="carousel-description">Deportiva ligera con motor bicilíndrico de 399cc - Perfecta para principiantes y expertos</div>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="../../../assets/img/moto_yamaha.jpg" alt="Moto Yamaha R1" class="carousel-image">
+                    <div class="carousel-caption">
+                        <div class="carousel-title">Yamaha YZF-R1</div>
+                        <div class="carousel-description">Superbike de 998cc con tecnología MotoGP - 200 HP de potencia supersport pura</div>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="../../../assets/img/moto_ktm.jpg" alt="Moto KTM" class="carousel-image">
+                    <div class="carousel-caption">
+                        <div class="carousel-title">KTM 1390 Super Duke R</div>
+                        <div class="carousel-description">Hyper naked de 1,350cc y 180 HP - La bestia austriaca más salvaje del asfalto</div>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="../../../assets/img/moto_bmw.jpg" alt="Moto BMW M1000RR" class="carousel-image">
+                    <div class="carousel-caption">
+                        <div class="carousel-title">BMW M1000RR</div>
+                        <div class="carousel-description">Superbike de competición con 999cc y 212 HP - M Performance en estado puro</div>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="../../../assets/img/moto_mt.jpg" alt="Moto MT-09" class="carousel-image">
+                    <div class="carousel-caption">
+                        <div class="carousel-title">Yamaha MT-09</div>
+                        <div class="carousel-description">Hyper naked con motor CP3 de 889cc - Torque explosivo y diversión sin compromisos</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-button prev" onclick="prevSlide()">‹</button>
+            <button class="carousel-button next" onclick="nextSlide()">›</button>
+        </div>
+
+        <div class="carousel-indicators" id="indicators"></div>
+    </div>
+
+    <script src="../../../assets/js/carrusel.js"></script>
+</body>
+</html>

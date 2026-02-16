@@ -1,0 +1,224 @@
+/* ============================================
+   CSS para integradora1.html - integradora
+   ============================================ */
+
+@import url('styles.css');
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body y Background */
+body {
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+}
+
+/* Contenedor */
+.container {
+    max-width: 800px;
+    width: 100%;
+    background: rgba(26, 26, 46, 0.95);
+    border-radius: 12px;
+    padding: 80px 60px;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+/* Icono Rocket */
+.rocket-icon {
+    font-size: 120px;
+    margin-bottom: 30px;
+    animation: float 3s ease-in-out infinite;
+    display: inline-block;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Títulos */
+h1 {
+    color: #e0e0e0;
+    margin-bottom: 20px;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #64b5f6, transparent);
+    margin: 40px auto;
+    max-width: 400px;
+}
+
+.subtitle {
+    color: #90caf9;
+    font-size: 20px;
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+}
+
+.description {
+    color: #b0bec5;
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Badge de Estado */
+.status-badge {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    background: rgba(255, 152, 0, 0.2);
+    color: #ff9800;
+    border: 2px solid rgba(255, 152, 0, 0.4);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Features */
+.features {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.feature-item {
+    background: rgba(30, 60, 114, 0.3);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid rgba(100, 181, 246, 0.2);
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    border-color: #64b5f6;
+    box-shadow: 0 8px 20px rgba(100, 181, 246, 0.3);
+}
+
+.feature-icon {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.feature-text {
+    color: #e0e0e0;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* === RESPONSIVE === */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 40px 25px;
+        margin-top: 80px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .rocket-icon {
+        font-size: 80px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .description {
+        font-size: 14px;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .rocket-icon {
+        font-size: 60px;
+    }
+
+    .subtitle {
+        font-size: 15px;
+    }
+
+    .description {
+        font-size: 13px;
+    }
+
+    .status-badge {
+        font-size: 12px;
+        padding: 10px 20px;
+    }
+
+    .feature-icon {
+        font-size: 30px;
+    }
+
+    .feature-text {
+        font-size: 13px;
+    }
+}

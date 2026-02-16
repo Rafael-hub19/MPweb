@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Métodos GET & POST - CETI</title>
+    <link rel="stylesheet" href="../../../assets/css/metg_p.css">
+    <link rel="stylesheet" href="../../../assets/css/styles.css">
+    <link rel="stylesheet" href="../../../assets/css/_variables.css">
+</head>
+<body>
+    <a href="../../web1.html" class="back-button">← Regresar al menú</a>
+
+    <div class="logo-container">
+        <img src="../../../assets/img/logo-ceti.png" alt="Logo CETI" class="logo-img">
+    </div>
+
+    <div class="container">
+        <h1>MÉTODOS HTTP: GET & POST</h1>
+        <div class="divider"></div>
+        <p class="subtitle">Práctica de envío de datos con formularios</p>
+
+        <div class="forms-container">
+            <!-- Formulario POST -->
+            <div class="form-card">
+                <h2 class="form-title">
+                    <span>Formulario con Método POST</span>
+                    <span class="method-badge method-post">POST</span>
+                </h2>
+                <form name="AltaPost" action="METP.php" method="post">
+                    <table class="form-table">
+                        <tr>
+                            <td>Nombre:</td>
+                            <td><input type="text" name="nombrePost" class="form-input" placeholder="Ingrese su nombre" required></td>
+                        </tr>
+                        <tr>
+                            <td>Apellido:</td>
+                            <td><input type="text" name="apellidoPost" class="form-input" placeholder="Ingrese su apellido" required></td>
+                        </tr>
+                    </table>
+                    <div class="submit-container">
+                        <button type="submit" name="BotonEnviar" class="submit-button">ENVIAR DATOS (POST)</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Formulario GET -->
+            <div class="form-card">
+                <h2 class="form-title">
+                    <span>Formulario con Método GET</span>
+                    <span class="method-badge method-get">GET</span>
+                </h2>
+                <form name="AltaGet" action="METG.php" method="get">
+                    <table class="form-table">
+                        <tr>
+                            <td>Nombre:</td>
+                            <td><input type="text" name="nombreGet" class="form-input" placeholder="Ingrese su nombre" required></td>
+                        </tr>
+                        <tr>
+                            <td>Apellido:</td>
+                            <td><input type="text" name="apellidoGet" class="form-input" placeholder="Ingrese su apellido" required></td>
+                        </tr>
+                    </table>
+                    <div class="submit-container">
+                        <button type="submit" name="BotonEnviar" class="submit-button">ENVIAR DATOS (GET)</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

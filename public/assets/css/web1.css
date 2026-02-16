@@ -1,0 +1,212 @@
+/* ============================================
+   CSS para web1.html - Menú Principal WEB1
+   ============================================ */
+
+@import url('styles.css');
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+}
+
+/* Contenedor */
+.container {
+    max-width: 1000px;
+    width: 100%;
+    background: rgba(26, 26, 46, 0.95);
+    border-radius: 12px;
+    padding: 60px;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+/* Títulos */
+h1 {
+    color: #e0e0e0;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #64b5f6;
+    margin-bottom: 50px;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
+
+.divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #64b5f6, transparent);
+    margin: 30px 0;
+}
+
+/* Grid de Menú */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.menu-card {
+    background: rgba(30, 60, 114, 0.3);
+    border-radius: 10px;
+    padding: 40px 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    border: 2px solid rgba(100, 181, 246, 0.2);
+    transition: all 0.3s ease;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(100, 181, 246, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.menu-card:hover::before {
+    left: 100%;
+}
+
+.menu-card:hover {
+    transform: translateY(-10px);
+    border-color: #64b5f6;
+    box-shadow: 0 15px 40px rgba(100, 181, 246, 0.4);
+    background: rgba(30, 60, 114, 0.5);
+}
+
+.menu-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.menu-title {
+    color: #e0e0e0;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+.menu-description {
+    color: #90caf9;
+    font-size: 14px;
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+}
+
+/* Badges */
+.status-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-top: 15px;
+}
+
+.badge-active {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+    border: 1px solid rgba(76, 175, 80, 0.4);
+}
+
+.badge-soon {
+    background: rgba(255, 152, 0, 0.2);
+    color: #ff9800;
+    border: 1px solid rgba(255, 152, 0, 0.4);
+}
+
+/* === RESPONSIVE === */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 40px 25px;
+        margin-top: 80px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .menu-card {
+        padding: 25px 20px;
+    }
+
+    .menu-icon {
+        font-size: 40px;
+    }
+
+    .menu-title {
+        font-size: 18px;
+    }
+
+    .menu-description {
+        font-size: 13px;
+    }
+}
