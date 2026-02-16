@@ -53,3 +53,5 @@ config.local.php
 # Archivos compilados o generados
 *.min.js
 *.min.css
+
+*.json
