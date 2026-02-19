@@ -22,26 +22,21 @@ body {
     position: relative;
     display: flex;
     justify-content: center;
-    align-items: center; /* ← CENTRADO VERTICAL en todos */
+    align-items: center;
 }
 
 body::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
         linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
         linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px);
     background-size: 50px 50px;
     pointer-events: none;
 }
 
-/* === ESTILOS ESPECÍFICOS DEL INDEX === */
-
-/* Wrapper Principal */
+/* === WRAPPER PRINCIPAL === */
 .wrap {
     width: min(1050px, 100%);
     max-width: 1050px;
@@ -123,7 +118,7 @@ body::before {
     margin-bottom: 18px;
 }
 
-/* Menú Principal */
+/* === MENÚ PRINCIPAL === */
 .main-menu {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -146,17 +141,13 @@ body::before {
 .card::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: -120%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+    top: 0; left: -120%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
     transition: left 0.5s;
 }
 
-.card:hover::before {
-    left: 120%;
-}
+.card:hover::before { left: 120%; }
 
 .card:hover {
     transform: translateY(-4px);
@@ -176,7 +167,7 @@ body::before {
 
 .icon {
     font-size: 28px;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25));
     flex-shrink: 0;
 }
 
@@ -194,7 +185,6 @@ body::before {
     line-height: 1.5;
 }
 
-/* Enlaces en las Cards */
 .card-link {
     display: inline-flex;
     align-items: center;
@@ -216,102 +206,115 @@ body::before {
     background: rgba(255, 255, 255, 0.25);
     border-color: rgba(255, 255, 255, 0.5);
     transform: translateX(3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    color: #fff;
 }
 
-.card-link::after {
-    content: '→';
-    font-size: 16px;
-    transition: transform 0.3s ease;
-}
-
-.card-link:hover::after {
-    transform: translateX(3px);
-}
-
-/* Submenú */
-.submenu {
-    display: none;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.10);
+/* === SECCIÓN DE ACCESO AL SISTEMA === */
+.auth-section {
+    background: rgba(30, 60, 114, 0.2);
+    border: 1px solid rgba(100, 181, 246, 0.2);
     border-radius: 12px;
-    padding: 18px;
-}
-
-.submenu.show {
-    display: block;
-}
-
-.submenu-head {
+    padding: 24px 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 20px;
     flex-wrap: wrap;
-    margin-bottom: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.submenu-title {
+.auth-section:hover {
+    border-color: rgba(100, 181, 246, 0.4);
+    box-shadow: 0 8px 30px rgba(100, 181, 246, 0.1);
+}
+
+.auth-header {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-weight: 700;
-    letter-spacing: 0.6px;
-}
-
-.badge {
-    font-size: 12px;
-    color: rgba(232, 238, 246, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: rgba(0, 0, 0, 0.18);
-}
-
-/* Subgrid */
-.subgrid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
 }
 
-a.subcard {
-    display: block;
-    text-decoration: none;
-    color: #e8eef6;
-    background: rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 12px;
-    padding: 18px;
-    transition: 0.22s ease;
-    position: relative;
-    overflow: hidden;
+.auth-icon {
+    font-size: 32px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    flex-shrink: 0;
 }
 
-a.subcard:hover {
-    transform: translateY(-3px);
-    border-color: rgba(100, 181, 246, 0.55);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+.auth-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #e0e0e0;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
 }
 
-.subcard .subicon {
-    font-size: 26px;
-    margin-bottom: 10px;
-}
-
-.subcard .subt {
-    font-weight: 800;
-    letter-spacing: 0.6px;
-}
-
-.subcard .subd {
-    margin-top: 6px;
+.auth-desc {
     font-size: 13px;
-    color: rgba(232, 238, 246, 0.75);
+    color: rgba(232, 238, 246, 0.65);
     line-height: 1.5;
+    margin: 0;
 }
 
-/* Footer */
+.auth-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Botones de autenticación */
+.btn-auth {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    border: 1.5px solid transparent;
+}
+
+.btn-auth svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+/* Login - relleno azul */
+.btn-login {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: #fff;
+    border-color: rgba(100, 181, 246, 0.4);
+}
+
+.btn-login:hover {
+    background: linear-gradient(135deg, #2a5298, #1e3c72);
+    box-shadow: 0 8px 25px rgba(100, 181, 246, 0.35);
+    transform: translateY(-2px);
+    color: #fff;
+    border-color: rgba(100, 181, 246, 0.7);
+}
+
+/* Registro - borde, transparente */
+.btn-register {
+    background: rgba(255, 255, 255, 0.06);
+    color: #e8eef6;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-register:hover {
+    background: rgba(100, 181, 246, 0.12);
+    border-color: rgba(100, 181, 246, 0.5);
+    color: #90caf9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+/* === FOOTER === */
 .footer {
     margin-top: 22px;
     display: flex;
@@ -339,32 +342,20 @@ a.subcard:hover {
     border-color: rgba(100, 181, 246, 0.55);
 }
 
-/* === RESPONSIVE - CENTRADO con padding superior === */
-
-/* Tablet - CENTRADO pero con espacio arriba para logo */
+/* === RESPONSIVE === */
 @media (max-width: 768px) {
     body {
-        padding: 100px 15px 30px 15px; /* ← Espacio arriba para logo */
-        /* align-items: center se mantiene */
+        padding: 100px 15px 30px;
     }
 
     .wrap {
         padding: 40px 25px;
     }
 
-    .title h1 {
-        font-size: 20px;
-    }
-
-    .title h2 {
-        font-size: 14px;
-    }
+    .title h1 { font-size: 20px; }
+    .title h2 { font-size: 14px; }
 
     .main-menu {
-        grid-template-columns: 1fr;
-    }
-
-    .subgrid {
         grid-template-columns: 1fr;
     }
 
@@ -382,26 +373,33 @@ a.subcard:hover {
         justify-content: center;
         text-align: center;
     }
+
+    .auth-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .auth-buttons {
+        width: 100%;
+    }
+
+    .btn-auth {
+        flex: 1;
+        justify-content: center;
+    }
 }
 
-/* Mobile - CENTRADO pero con espacio arriba para logo */
 @media (max-width: 480px) {
     body {
-        padding: 90px 10px 20px 10px; /* ← Espacio arriba para logo pequeño */
-        /* align-items: center se mantiene */
+        padding: 90px 10px 20px;
     }
 
     .wrap {
         padding: 30px 20px;
     }
 
-    .title h1 {
-        font-size: 18px;
-    }
-
-    .title h2 {
-        font-size: 13px;
-    }
+    .title h1 { font-size: 18px; }
+    .title h2 { font-size: 13px; }
 
     .card {
         padding: 20px;
@@ -412,21 +410,22 @@ a.subcard:hover {
         gap: 10px;
     }
 
-    .icon {
-        font-size: 32px;
-    }
-
-    .card h3 {
-        font-size: 16px;
-    }
-
-    .card p {
-        font-size: 12px;
-    }
+    .icon { font-size: 32px; }
+    .card h3 { font-size: 16px; }
+    .card p  { font-size: 12px; }
 
     .card-link {
         font-size: 12px;
         padding: 10px 14px;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+    }
+
+    .btn-auth {
+        width: 100%;
+        justify-content: center;
     }
 
     .footer {

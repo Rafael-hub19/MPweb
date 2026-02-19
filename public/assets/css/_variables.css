@@ -105,27 +105,15 @@
     --z-dropdown: 10;
     --z-sticky: 100;
     --z-index: 1000;
+    --z-fixed: 1001;   /* Usada por .back-button en styles.css */
     --z-modal: 10000;
     
     /* === BREAKPOINTS (para uso en @media) === */
-    /* Nota: Estas son para referencia, usar valores directos en media queries */
     /* --breakpoint-mobile: 480px; */
     /* --breakpoint-tablet: 768px; */
     /* --breakpoint-desktop: 860px; */
     /* --breakpoint-wide: 1200px; */
 }
-
-/* === TEMA OSCURO (Ya aplicado por defecto) === */
-/* Si quisieras agregar un tema claro, podrías usar: */
-/*
-[data-theme="light"] {
-    --bg-gradient-start: #f5f5f5;
-    --bg-gradient-mid: #e0e0e0;
-    --bg-gradient-end: #d0d0d0;
-    --text-primary: #1a1a1a;
-    ...etc
-}
-*/
 
 /* === VARIABLES ESPECÍFICAS DE COMPONENTES === */
 :root {

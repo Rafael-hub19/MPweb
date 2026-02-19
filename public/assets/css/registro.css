@@ -1,0 +1,470 @@
+/* ============================================
+   registro.css - Estilos de Registro de Usuario
+   ============================================ */
+
+@import url('styles.css');
+
+/* === CANVAS DE PARTÍCULAS === */
+#particles-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* === WRAPPER PRINCIPAL === */
+.registro-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px 60px;
+    position: relative;
+    z-index: 1;
+}
+
+/* === CONTENEDOR DEL FORMULARIO === */
+.registro-container {
+    width: 100%;
+    max-width: 520px;
+    background: var(--panel-primary);
+    border-radius: var(--radius-xlarge);
+    padding: 50px 44px;
+    box-shadow: var(--shadow-large), 0 0 80px rgba(100, 181, 246, 0.08);
+    border: 1px solid var(--border-light);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Línea de acento superior */
+.registro-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+    border-radius: 0 0 4px 4px;
+}
+
+/* Brillo sutil de esquina */
+.registro-container::after {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle, rgba(100, 181, 246, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* === HEADER === */
+.registro-header {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.registro-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, rgba(100, 181, 246, 0.15), rgba(42, 82, 152, 0.25));
+    border-radius: var(--radius-round);
+    border: 1.5px solid var(--border-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.registro-icon svg {
+    width: 30px;
+    height: 30px;
+    color: var(--accent-blue);
+    stroke: var(--accent-blue);
+}
+
+.check-path {
+    stroke-dasharray: 8;
+    stroke-dashoffset: 8;
+    animation: drawCheck 0.5s ease 0.8s forwards;
+}
+
+@keyframes drawCheck {
+    to { stroke-dashoffset: 0; }
+}
+
+.registro-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-heading);
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+}
+
+.registro-subtitle {
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+    letter-spacing: var(--letter-spacing-normal);
+    margin-bottom: 0;
+    line-height: var(--line-height-normal);
+}
+
+/* Sobreescribir margen del divider global */
+.registro-header .divider {
+    margin: 24px 0 0;
+}
+
+/* === FORMULARIO === */
+.registro-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+/* === GRUPOS DE CAMPO === */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+/* === LABELS === */
+.form-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-secondary);
+    letter-spacing: var(--letter-spacing-normal);
+    transition: color var(--transition-fast);
+    cursor: default;
+}
+
+.form-group:focus-within .form-label {
+    color: var(--accent-blue);
+}
+
+.label-icon {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.label-icon svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+}
+
+/* === INPUT WRAPPER === */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* === INPUTS — sobreescribir styles.css para adaptarlos === */
+.registro-form .form-input {
+    width: 100%;
+    padding: 13px 44px 13px 16px;
+    border: 1.5px solid var(--border-medium);
+    border-radius: var(--radius-small);
+    font-size: var(--font-size-base);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-primary);
+    background: rgba(10, 20, 40, 0.55);
+    transition: border-color var(--transition-medium), box-shadow var(--transition-medium), background var(--transition-medium);
+    letter-spacing: var(--letter-spacing-tight);
+}
+
+.registro-form .form-input::placeholder {
+    color: rgba(176, 190, 197, 0.45);
+    font-weight: var(--font-weight-normal);
+}
+
+.registro-form .form-input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    background: rgba(10, 20, 40, 0.75);
+    box-shadow: 0 0 0 3px rgba(100, 181, 246, 0.15), 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Estado válido */
+.form-group.is-valid .form-input {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.12);
+}
+
+/* Estado inválido */
+.form-group.is-invalid .form-input {
+    border-color: #ef5350;
+    box-shadow: 0 0 0 2px rgba(239, 83, 80, 0.12);
+}
+
+/* === ICONO DE STATUS (✓ / ✗) === */
+.input-status {
+    position: absolute;
+    right: 14px;
+    width: 16px;
+    height: 16px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: opacity var(--transition-fast);
+    opacity: 0;
+}
+
+.form-group.is-valid .input-status::after {
+    content: '✓';
+    color: var(--accent-green);
+    font-weight: 700;
+    opacity: 1;
+}
+
+.form-group.is-invalid .input-status::after {
+    content: '✗';
+    color: #ef5350;
+    font-weight: 700;
+    opacity: 1;
+}
+
+.form-group.is-valid .input-status,
+.form-group.is-invalid .input-status {
+    opacity: 1;
+}
+
+/* Cuando hay toggle-password, status se desplaza */
+.input-wrapper .toggle-password ~ .input-status {
+    right: 42px;
+}
+
+/* === TOGGLE PASSWORD === */
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    color: var(--text-muted);
+    transition: color var(--transition-fast);
+    z-index: 2;
+}
+
+.toggle-password:hover {
+    color: var(--accent-blue);
+}
+
+.toggle-password svg {
+    width: 17px;
+    height: 17px;
+}
+
+/* Ajustar padding del input cuando hay toggle */
+.input-wrapper:has(.toggle-password) .form-input {
+    padding-right: 72px;
+}
+
+/* === BARRA DE FORTALEZA === */
+.strength-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 2px;
+    min-height: 18px;
+}
+
+.strength-track {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.strength-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    transition: width 0.4s ease, background-color 0.4s ease;
+    background: transparent;
+}
+
+.strength-fill.weak   { background: #ef5350; }
+.strength-fill.fair   { background: var(--accent-orange); }
+.strength-fill.good   { background: #ffeb3b; }
+.strength-fill.strong { background: var(--accent-green); }
+
+.strength-label {
+    font-size: 11px;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    min-width: 52px;
+    text-align: right;
+    transition: color 0.4s ease;
+    color: var(--text-muted);
+}
+
+.strength-label.weak   { color: #ef5350; }
+.strength-label.fair   { color: var(--accent-orange); }
+.strength-label.good   { color: #ffeb3b; }
+.strength-label.strong { color: var(--accent-green); }
+
+/* === MENSAJES DE ERROR === */
+.form-error {
+    font-size: var(--font-size-xs);
+    color: #ef5350;
+    letter-spacing: var(--letter-spacing-tight);
+    min-height: 14px;
+    display: block;
+    padding-left: 2px;
+    transition: opacity var(--transition-fast);
+    opacity: 0;
+}
+
+.form-group.is-invalid .form-error {
+    opacity: 1;
+}
+
+/* === BOTÓN DE REGISTRO === */
+.btn-registro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 15px 24px;
+    margin-top: 6px;
+    border: none;
+    border-radius: var(--radius-small);
+    background: linear-gradient(135deg, var(--accent-blue-dark) 0%, #1565c0 50%, var(--accent-blue-dark) 100%);
+    background-size: 200% 100%;
+    background-position: 0% 0%;
+    color: #fff;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-position 0.5s ease, box-shadow var(--transition-medium), transform var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-registro::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.btn-registro:hover::before {
+    transform: translateX(100%);
+}
+
+.btn-registro:hover {
+    background-position: 100% 0%;
+    box-shadow: var(--shadow-accent);
+    transform: translateY(-2px);
+}
+
+.btn-registro:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-small);
+}
+
+.btn-registro:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-arrow {
+    transition: transform var(--transition-fast);
+    font-size: 18px;
+}
+
+.btn-registro:hover .btn-arrow {
+    transform: translateX(4px);
+}
+
+/* Loader de spinner */
+.btn-loader svg {
+    width: 18px;
+    height: 18px;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* === LINK DE LOGIN === */
+.registro-login-link {
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    margin: 4px 0 0;
+    letter-spacing: var(--letter-spacing-tight);
+}
+
+.registro-login-link a {
+    color: var(--accent-blue);
+    font-weight: var(--font-weight-semibold);
+    transition: color var(--transition-fast);
+}
+
+.registro-login-link a:hover {
+    color: var(--accent-blue-light);
+    text-decoration: underline;
+}
+
+/* === ANIMACIÓN ENTRADA SECUENCIAL === */
+.registro-container .form-group:nth-child(1) { animation: fadeIn 0.5s ease 0.1s both; }
+.registro-container .form-group:nth-child(2) { animation: fadeIn 0.5s ease 0.2s both; }
+.registro-container .form-group:nth-child(3) { animation: fadeIn 0.5s ease 0.3s both; }
+.registro-container .form-group:nth-child(4) { animation: fadeIn 0.5s ease 0.4s both; }
+.btn-registro { animation: fadeIn 0.5s ease 0.5s both; }
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .registro-wrapper {
+        padding: 90px 16px 40px;
+    }
+
+    .registro-container {
+        padding: 36px 28px;
+    }
+
+    .registro-title {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .registro-container {
+        padding: 30px 20px;
+    }
+
+    .registro-title {
+        font-size: 22px;
+    }
+}
