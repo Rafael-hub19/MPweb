@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<productos>
+    <producto id="1">
+        <nombre>Balon</nombre>
+        <precio>12.99</precio>
+        <cantidad>20</cantidad>
+    </producto>
+    <producto id="2">
+        <nombre>Pelota roja</nombre>
+        <precio>150.00</precio>
+        <cantidad>5</cantidad>
+    </producto>
+</productos>
