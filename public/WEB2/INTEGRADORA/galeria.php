@@ -66,7 +66,10 @@ if (file_exists($xmlFile)) {
     $cartCount = count($xmlCart->item);
 }
 
-$sqlGal    = "SELECT * FROM `productos` WHERE `existenciaP` > 5 ORDER BY `idP` ASC";
+$sqlGal = "SELECT `idP`, `nombreP`, `marcaP`, `tipoImagenP`, `existenciaP`, `precioP` 
+           FROM `productos` 
+           WHERE `existenciaP` > 0 
+           ORDER BY `idP` ASC";
 $resultado = mysqli_query($conexion, $sqlGal);
 ?>
 <!DOCTYPE html>
@@ -76,7 +79,7 @@ $resultado = mysqli_query($conexion, $sqlGal);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galeria de Motos - MotoStore</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../assets/css/integradora_galeria.css">
+    <link rel="stylesheet" href="../../assets/css/integradora_galeria.css">
 </head>
 <body>
 <nav>
@@ -90,7 +93,7 @@ $resultado = mysqli_query($conexion, $sqlGal);
         <a href="logout.php" class="btn-n btn-out">Cerrar Sesion</a>
     </div>
 </nav>
-<a href="../../web2.html" class="btn-back-link">&larr; Regresar a WEB 2</a>
+<a href="../web2.html" class="btn-back-link">&larr; Regresar a WEB 2</a>
 <div class="hero">
     <div class="hero-lbl">Catalogo 2026</div>
     <h1>Galeria de<br>Motocicletas</h1>
@@ -127,6 +130,6 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 mysqli_close($conexion);
 ?>
 </div>
-<script src="../../../assets/js/integradora_galeria.js"></script>
+<script src="../../assets/js/integradora_galeria.js"></script>
 </body>
 </html>

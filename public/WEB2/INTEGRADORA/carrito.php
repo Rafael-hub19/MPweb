@@ -103,7 +103,7 @@ mysqli_close($conexion);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito - MotoStore</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../assets/css/integradora_carrito.css">
+    <link rel="stylesheet" href="../../assets/css/integradora_carrito.css">
 </head>
 <body>
 <?php if ($compraOk) { ?>
@@ -183,6 +183,6 @@ mysqli_close($conexion);
         </div>
     <?php } ?>
 </div>
-<script src="../../../assets/js/integradora_carrito.js"></script>
+<script src="../../assets/js/integradora_carrito.js"></script>
 </body>
 </html>

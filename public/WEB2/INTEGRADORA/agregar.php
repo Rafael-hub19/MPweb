@@ -82,7 +82,7 @@ mysqli_close($conexion);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar al Carrito - MotoStore</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../assets/css/integradora_agregar.css">
+    <link rel="stylesheet" href="../../assets/css/integradora_agregar.css">
 </head>
 <body>
 <div class="card">
@@ -122,6 +122,6 @@ mysqli_close($conexion);
         <a href="carrito.php">Ver Carrito &#128722;</a>
     </div>
 </div>
-<script src="../../../assets/js/integradora_agregar.js"></script>
+<script src="../../assets/js/integradora_agregar.js"></script>
 </body>
 </html>

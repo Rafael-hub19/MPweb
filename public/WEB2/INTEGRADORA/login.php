@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesion - MotoStore</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../assets/css/integradora_login.css">
+    <link rel="stylesheet" href="../../assets/css/integradora_login.css">
 </head>
 <body>
 <div class="wrap">
@@ -52,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="card">
         <h2>Iniciar Sesion</h2>
         <p class="sub">Accede a la galeria y carrito de compras</p>
-        <div class="hint"><strong>Demo:</strong> usuario: <strong>admin</strong> &nbsp;|&nbsp; contrasena: <strong>password</strong></div>
         <?php if ($error != '') { echo '<div class="alert-error">' . htmlspecialchars($error) . '</div>'; } ?>
         <form method="POST" action="" onsubmit="return val()">
             <div class="field">
@@ -66,9 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <button type="submit" class="btn">Entrar</button>
         </form>
-        <div class="back"><a href="../../index.html">&larr; Regresar al inicio</a></div>
+        <div class="back">&iquest;No tienes cuenta? <a href="registro.php">Registrarse</a></div>
+        <div class="back" style="margin-top:8px"><a href="../web2.html">&larr; Regresar a WEB 2</a></div>
     </div>
 </div>
-<script src="../../../assets/js/integradora_login.js"></script>
+<script src="../../assets/js/integradora_login.js"></script>
 </body>
 </html>
