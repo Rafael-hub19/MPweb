@@ -121,7 +121,7 @@ mysqli_close($conexion);
     <div class="nav-r">
         <a href="index.php" class="btn-n btn-out">Inicio</a>
         <a href="galeria.php" class="btn-n btn-out">&#128661; Catalogo</a>
-        <a href="logout.php" class="btn-n">Cerrar Sesion</a>
+        <a href="logout.php" onclick="return confirm('¿Seguro que deseas cerrar sesion?')" class="btn-n">Cerrar Sesion</a>
     </div>
 </nav>
 <div class="page">

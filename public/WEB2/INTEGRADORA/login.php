@@ -2,14 +2,16 @@
 /* login.php - Programacion Web 2 - Mtra. Patricia Torres
    Rafael Avila Sanchez - CETI 8F - 22300193 */
 session_start();
+$redirect = isset($_GET['redirect']) ? basename($_GET['redirect']) : 'galeria.php';
 if (isset($_SESSION['usuario'])) {
-    header("Location: galeria.php");
+    header("Location: " . $redirect);
     exit();
 }
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $usuario    = isset($_POST['usuario'])    ? trim($_POST['usuario'])    : '';
     $contrasena = isset($_POST['contrasena']) ? trim($_POST['contrasena']) : '';
+    $redirect   = isset($_POST['redirect'])  ? basename($_POST['redirect']) : 'galeria.php';
     if ($usuario == '' || $contrasena == '') {
         $error = 'Todos los campos son obligatorios.';
     } else {
@@ -22,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['usuario'] = $row['usuarioU'];
                 $_SESSION['idU']     = $row['idU'];
                 mysqli_close($conexion);
-                header("Location: galeria.php");
+                header("Location: " . $redirect);
                 exit();
             } else {
                 $error = 'Contrasena incorrecta.';
@@ -54,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <p class="sub">Accede a la galeria y carrito de compras</p>
         <?php if ($error != '') { echo '<div class="alert-error">' . htmlspecialchars($error) . '</div>'; } ?>
         <form method="POST" action="" onsubmit="return val()">
+            <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($redirect); ?>">
             <div class="field">
                 <label for="u">Usuario</label>
                 <input type="text" id="u" name="usuario" placeholder="Tu usuario" required

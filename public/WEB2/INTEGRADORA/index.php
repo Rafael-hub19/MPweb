@@ -49,11 +49,11 @@ mysqli_close($conexion);
             <span class="nav-u">Hola, <span><?php echo htmlspecialchars($_SESSION['usuario']); ?></span></span>
             <a href="galeria.php" class="btn-n btn-cart">&#128661; Catalogo</a>
             <a href="carrito.php" class="btn-n btn-ghost">&#128722; Carrito</a>
-            <a href="logout.php" class="btn-n btn-out">Salir</a>
+            <a href="logout.php" onclick="return confirm('¿Seguro que deseas cerrar sesion?')" class="btn-n btn-out">Salir</a>
         <?php } else { ?>
-            <a href="login.php" class="btn-n btn-ghost">&#128661; Catalogo</a>
+            <a href="galeria.php" class="btn-n btn-cart">&#128661; Catalogo</a>
             <a href="login.php" class="btn-n btn-ghost">Iniciar Sesion</a>
-            <a href="registro.php" class="btn-n btn-cart">Registrarse</a>
+            <a href="registro.php" class="btn-n btn-out">Registrarse</a>
         <?php } ?>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Menu">&#9776;</button>
@@ -61,12 +61,11 @@ mysqli_close($conexion);
 
 <!-- ========== MOBILE MENU ========== -->
 <div class="mobile-menu" id="mobileMenu">
+    <a href="galeria.php">&#128661; Catalogo</a>
     <?php if ($loggedIn) { ?>
-        <a href="galeria.php">&#128661; Catalogo</a>
         <a href="carrito.php">&#128722; Carrito</a>
-        <a href="logout.php">Salir</a>
+        <a href="logout.php" onclick="return confirm('¿Seguro que deseas cerrar sesion?')">Salir</a>
     <?php } else { ?>
-        <a href="login.php">&#128661; Catalogo</a>
         <a href="login.php">Iniciar Sesion</a>
         <a href="registro.php">Registrarse</a>
     <?php } ?>
@@ -82,11 +81,10 @@ mysqli_close($conexion);
         <h1>Encuentra tu<br><span>Moto Ideal</span></h1>
         <p>Explora nuestra seleccion de motocicletas premium. Precios inmejorables, stock actualizado en tiempo real.</p>
         <div class="hero-btns">
+            <a href="galeria.php" class="btn-hero-pri">&#128661; Ver Catalogo</a>
             <?php if ($loggedIn) { ?>
-                <a href="galeria.php" class="btn-hero-pri">&#128661; Ver Catalogo</a>
                 <a href="carrito.php" class="btn-hero-sec">&#128722; Mi Carrito</a>
             <?php } else { ?>
-                <a href="registro.php" class="btn-hero-pri">Empezar Ahora</a>
                 <a href="login.php" class="btn-hero-sec">Iniciar Sesion</a>
             <?php } ?>
         </div>
@@ -141,7 +139,7 @@ mysqli_close($conexion);
             if ($loggedIn) {
                 echo '<a href="galeria.php" class="feat-btn">&#128722; Comprar</a>';
             } else {
-                echo '<a href="login.php" class="feat-btn">Ver Precio</a>';
+                echo '<a href="galeria.php" class="feat-btn">&#128661; Ver en Catalogo</a>';
             }
             echo '</div>';
             echo '</div>';
@@ -153,11 +151,7 @@ mysqli_close($conexion);
     ?>
     </div>
     <div class="feat-cta">
-        <?php if ($loggedIn) { ?>
-            <a href="galeria.php" class="btn-hero-pri">Ver Catalogo Completo &rarr;</a>
-        <?php } else { ?>
-            <a href="registro.php" class="btn-hero-pri">Crear Cuenta para Ver Todos &rarr;</a>
-        <?php } ?>
+        <a href="galeria.php" class="btn-hero-pri">Ver Catalogo Completo &rarr;</a>
     </div>
 </section>
 
@@ -195,11 +189,10 @@ mysqli_close($conexion);
 <section class="cta-banner">
     <div class="cta-content">
         <h2>Listo para encontrar<br>tu proxima moto?</h2>
-        <p>Crea tu cuenta gratis y accede al catalogo completo con precios y stock actualizados.</p>
-        <?php if ($loggedIn) { ?>
-            <a href="galeria.php" class="btn-hero-pri">Ir al Catalogo</a>
-        <?php } else { ?>
-            <a href="registro.php" class="btn-hero-pri">Crear Cuenta Gratis</a>
+        <p>Explora el catalogo completo con precios y stock actualizados. Inicia sesion para agregar al carrito y realizar tu compra.</p>
+        <a href="galeria.php" class="btn-hero-pri">&#128661; Ir al Catalogo</a>
+        <?php if (!$loggedIn) { ?>
+            <a href="registro.php" class="btn-hero-sec" style="margin-left:12px">Crear Cuenta Gratis</a>
         <?php } ?>
     </div>
 </section>
@@ -210,10 +203,10 @@ mysqli_close($conexion);
         <div class="footer-brand">MotoStore</div>
         <div class="footer-links">
             <a href="index.php">Inicio</a>
+            <a href="galeria.php">Catalogo</a>
             <?php if ($loggedIn) { ?>
-                <a href="galeria.php">Catalogo</a>
                 <a href="carrito.php">Carrito</a>
-                <a href="logout.php">Salir</a>
+                <a href="logout.php" onclick="return confirm('¿Seguro que deseas cerrar sesion?')">Salir</a>
             <?php } else { ?>
                 <a href="login.php">Iniciar Sesion</a>
                 <a href="registro.php">Registro</a>

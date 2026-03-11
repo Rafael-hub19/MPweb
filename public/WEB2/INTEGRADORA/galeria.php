@@ -2,10 +2,7 @@
 /* galeria.php - Programacion Web 2 - Mtra. Patricia Torres
    Rafael Avila Sanchez - CETI 8F - 22300193 */
 session_start();
-if (!isset($_SESSION['usuario'])) {
-    header("Location: login.php");
-    exit();
-}
+$loggedIn = isset($_SESSION['usuario']);
 include 'conectbd.php';
 
 $mensaje = '';
@@ -13,6 +10,10 @@ $tipo    = '';
 $xmlFile = 'carrito.xml';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'agregar') {
+    if (!$loggedIn) {
+        header("Location: login.php?redirect=galeria.php");
+        exit();
+    }
     $idP      = isset($_POST['idP'])      ? intval($_POST['idP'])      : 0;
     $cantidad = isset($_POST['cantidad']) ? intval($_POST['cantidad']) : 1;
     if ($idP <= 0) {
@@ -85,13 +86,19 @@ $resultado = mysqli_query($conexion, $sqlGal);
 <nav>
     <a class="brand" href="index.php">MotoStore</a>
     <div class="nav-r">
-        <span class="nav-u">Hola, <span><?php echo htmlspecialchars($_SESSION['usuario']); ?></span></span>
-        <a href="index.php" class="btn-n btn-out">Inicio</a>
-        <a href="carrito.php" class="btn-n btn-cart">
-            &#128722; Carrito
-            <?php if ($cartCount > 0) { echo '<span class="cart-n">' . $cartCount . '</span>'; } ?>
-        </a>
-        <a href="logout.php" class="btn-n btn-out">Cerrar Sesion</a>
+        <?php if ($loggedIn) { ?>
+            <span class="nav-u">Hola, <span><?php echo htmlspecialchars($_SESSION['usuario']); ?></span></span>
+            <a href="index.php" class="btn-n btn-out">Inicio</a>
+            <a href="carrito.php" class="btn-n btn-cart">
+                &#128722; Carrito
+                <?php if ($cartCount > 0) { echo '<span class="cart-n">' . $cartCount . '</span>'; } ?>
+            </a>
+            <a href="logout.php" onclick="return confirm('¿Seguro que deseas cerrar sesion?')" class="btn-n btn-out">Cerrar Sesion</a>
+        <?php } else { ?>
+            <a href="index.php" class="btn-n btn-out">Inicio</a>
+            <a href="login.php?redirect=galeria.php" class="btn-n btn-cart">&#128274; Iniciar Sesion</a>
+            <a href="registro.php" class="btn-n btn-out">Registrarse</a>
+        <?php } ?>
     </div>
 </nav>
 <a href="../web2.html" class="btn-back-link">&larr; Regresar a WEB 2</a>
@@ -117,12 +124,16 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         echo '<div class="pprice">$' . number_format($moto['precioP'], 0, '.', ',') . ' MXN</div>';
         echo '<div class="pstock">&#128230; ' . $moto['existenciaP'] . ' en stock</div>';
         echo '</div>';
-        echo '<form method="POST" action="" class="add-f" onsubmit="return valQty(this)">';
-        echo '<input type="hidden" name="action" value="agregar">';
-        echo '<input type="hidden" name="idP" value="' . $moto['idP'] . '">';
-        echo '<input type="number" name="cantidad" value="1" min="1" max="' . $moto['existenciaP'] . '" class="qty" title="Cantidad">';
-        echo '<button type="submit" class="btn-add">&#128722; Agregar</button>';
-        echo '</form>';
+        if ($loggedIn) {
+            echo '<form method="POST" action="" class="add-f" onsubmit="return valQty(this)">';
+            echo '<input type="hidden" name="action" value="agregar">';
+            echo '<input type="hidden" name="idP" value="' . $moto['idP'] . '">';
+            echo '<input type="number" name="cantidad" value="1" min="1" max="' . $moto['existenciaP'] . '" class="qty" title="Cantidad">';
+            echo '<button type="submit" class="btn-add">&#128722; Agregar</button>';
+            echo '</form>';
+        } else {
+            echo '<a href="login.php?redirect=galeria.php" class="btn-add btn-add-login">&#128274; Iniciar sesion para comprar</a>';
+        }
         echo '</div></div>';
     }
 } else {
