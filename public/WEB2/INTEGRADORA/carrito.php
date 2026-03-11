@@ -117,9 +117,10 @@ mysqli_close($conexion);
 </div>
 <?php } ?>
 <nav>
-    <a class="brand" href="galeria.php">MotoStore</a>
+    <a class="brand" href="index.php">MotoStore</a>
     <div class="nav-r">
-        <a href="galeria.php" class="btn-n">&larr; Galeria</a>
+        <a href="index.php" class="btn-n btn-out">Inicio</a>
+        <a href="galeria.php" class="btn-n btn-out">&#128661; Catalogo</a>
         <a href="logout.php" class="btn-n">Cerrar Sesion</a>
     </div>
 </nav>

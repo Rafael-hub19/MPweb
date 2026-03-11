@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 &iquest;Ya tienes cuenta? <a href="login.php">Inicia Sesion</a>
             <?php } ?>
         </div>
-        <div class="back" style="margin-top:8px"><a href="../web2.html">&larr; Regresar a WEB 2</a></div>
+        <div class="back" style="margin-top:8px"><a href="index.php">&larr; Regresar al Inicio</a></div>
     </div>
 </div>
 <script src="../../assets/js/integradora_login.js"></script>

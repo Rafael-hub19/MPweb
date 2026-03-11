@@ -83,9 +83,10 @@ $resultado = mysqli_query($conexion, $sqlGal);
 </head>
 <body>
 <nav>
-    <a class="brand" href="galeria.php">MotoStore</a>
+    <a class="brand" href="index.php">MotoStore</a>
     <div class="nav-r">
         <span class="nav-u">Hola, <span><?php echo htmlspecialchars($_SESSION['usuario']); ?></span></span>
+        <a href="index.php" class="btn-n btn-out">Inicio</a>
         <a href="carrito.php" class="btn-n btn-cart">
             &#128722; Carrito
             <?php if ($cartCount > 0) { echo '<span class="cart-n">' . $cartCount . '</span>'; } ?>
