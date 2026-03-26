@@ -47,13 +47,6 @@ if (!$orderID) {
 include 'paypal_config.php';
 include 'conectbd.php';
 
-/* ── Verificar cURL ─────────────────────────────────── */
-if (!function_exists('curl_init')) {
-    ob_end_clean();
-    echo json_encode(array('error' => 'El servidor no tiene habilitada la extension cURL de PHP.'));
-    exit;
-}
-
 /* ── Capturar orden en PayPal ───────────────────────── */
 $capture = paypal_capture_order($orderID);
 
