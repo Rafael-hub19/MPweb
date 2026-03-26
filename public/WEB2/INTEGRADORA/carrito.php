@@ -7,6 +7,7 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 include 'conectbd.php';
+include 'paypal_config.php';
 
 $xmlFile  = 'carrito.xml';
 $mensaje  = '';
@@ -124,6 +125,12 @@ mysqli_close($conexion);
         <a href="logout.php" onclick="return confirm('¿Seguro que deseas cerrar sesion?')" class="btn-n">Cerrar Sesion</a>
     </div>
 </nav>
+<div style="text-align:right; padding:10px 32px 0;">
+    <a href="generar_reporte.php" target="_blank"
+       style="background:#1e1e1e; color:#fff; padding:8px 16px; border-radius:6px; text-decoration:none; font-size:14px;">
+        &#128196; Generar Reporte PDF
+    </a>
+</div>
 <div class="page">
     <div class="page-lbl">Tu pedido</div>
     <h1>Carrito de<br>Compras</h1>
@@ -178,6 +185,42 @@ mysqli_close($conexion);
                 <button type="submit" class="btn-buy">&#128661; Comprar Ahora</button>
             </form>
         </div>
+
+        <!-- PayPal Button -->
+        <div id="paypal-button-container" style="max-width:400px; margin:24px auto 0;"></div>
+        <script src="https://www.paypal.com/sdk/js?client-id=<?php echo PAYPAL_CLIENT_ID; ?>&currency=MXN"></script>
+        <script>
+            paypal.Buttons({
+                createOrder: function() {
+                    return fetch('paypal_create_order.php', { method: 'POST' })
+                        .then(function(res) { return res.json(); })
+                        .then(function(data) {
+                            if (data.error) { alert('Error: ' + data.error); throw new Error(data.error); }
+                            return data.id;
+                        });
+                },
+                onApprove: function(data) {
+                    return fetch('paypal_capture_order.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ orderID: data.orderID })
+                    })
+                    .then(function(res) { return res.json(); })
+                    .then(function(result) {
+                        if (result.success) {
+                            alert('Pago completado con PayPal');
+                            window.location.href = 'galeria.php';
+                        } else {
+                            alert('Error al capturar el pago: ' + (result.error || 'Error desconocido'));
+                        }
+                    });
+                },
+                onError: function(err) {
+                    alert('Ocurrio un error con PayPal: ' + err);
+                }
+            }).render('#paypal-button-container');
+        </script>
+
         <div class="xml-box">
             <h3>&#128196; Contenido actual de carrito.xml</h3>
             <pre><?php echo htmlspecialchars($xmlRaw); ?></pre>
