@@ -38,6 +38,9 @@ define('PAYPAL_BASE_URL',      PAYPAL_MODE === 'live' ? 'https://api-m.paypal.co
  * @return string|false Access token o false en caso de error.
  */
 function paypal_get_access_token() {
+    if (!function_exists('curl_init')) {
+        return false;
+    }
     $ch = curl_init(PAYPAL_BASE_URL . '/v1/oauth2/token');
     curl_setopt_array($ch, array(
         CURLOPT_RETURNTRANSFER => true,
