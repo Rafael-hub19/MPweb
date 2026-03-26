@@ -1,11 +1,10 @@
 <?php
 /* paypal_config.php - Programacion Web 2 - Mtra. Patricia Torres
-   Rafael Avila Sanchez - CETI 8F - 22300193 */
+   Rafael Avila Sanchez - CETI 8F - 22300193
+   Comunicacion con PayPal via file_get_contents (SSL verify deshabilitado)
+   con fallback a cURL. Compatible con PHP 5.5. */
 
-/**
- * Carga las variables de entorno desde un archivo .env (PHP 5.5 compatible).
- * @param string $path Ruta al archivo .env
- */
+/* ── Cargar .env ──────────────────────────────────────── */
 function load_env($path) {
     if (!file_exists($path)) {
         return;
@@ -26,57 +25,88 @@ function load_env($path) {
     }
 }
 
-load_env(__DIR__ . '/.env');
+load_env(dirname(__FILE__) . '/.env');
 
 define('PAYPAL_CLIENT_ID',     getenv('PAYPAL_CLIENT_ID')     !== false ? getenv('PAYPAL_CLIENT_ID')     : '');
 define('PAYPAL_CLIENT_SECRET', getenv('PAYPAL_CLIENT_SECRET') !== false ? getenv('PAYPAL_CLIENT_SECRET') : '');
 define('PAYPAL_MODE',          getenv('PAYPAL_MODE')          !== false ? getenv('PAYPAL_MODE')          : 'sandbox');
 define('PAYPAL_BASE_URL',      PAYPAL_MODE === 'live' ? 'https://api-m.paypal.com' : 'https://api-m.sandbox.paypal.com');
 
-/**
- * Obtiene un access token de PayPal usando las credenciales configuradas.
- * @return string|false Access token o false en caso de error.
- */
-function paypal_get_access_token() {
+/* ── Helper: HTTP POST ────────────────────────────────────
+   Intenta primero file_get_contents (sin SSL verify, funciona
+   en el servidor CETI). Si allow_url_fopen esta desactivado,
+   cae a cURL con SSL_VERIFYPEER=false.
+   Devuelve el body como string, o false en error.
+   ────────────────────────────────────────────────────── */
+function _pp_http_post($url, $headers, $body) {
+    /* -- Opcion A: file_get_contents (recomendada para CETI) -- */
+    if (ini_get('allow_url_fopen')) {
+        $ctx = stream_context_create(array(
+            'http' => array(
+                'method'        => 'POST',
+                'header'        => implode("\r\n", $headers),
+                'content'       => $body,
+                'ignore_errors' => true,
+                'timeout'       => 15,
+            ),
+            'ssl' => array(
+                'verify_peer'      => false,
+                'verify_peer_name' => false,
+            ),
+        ));
+        $response = @file_get_contents($url, false, $ctx);
+        if ($response !== false) {
+            return $response;
+        }
+    }
+
+    /* -- Opcion B: cURL con SSL deshabilitado -- */
     if (!function_exists('curl_init')) {
         return false;
     }
-    $ch = curl_init(PAYPAL_BASE_URL . '/v1/oauth2/token');
+    $ch = curl_init($url);
     curl_setopt_array($ch, array(
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST           => true,
-        CURLOPT_POSTFIELDS     => 'grant_type=client_credentials',
-        CURLOPT_USERPWD        => PAYPAL_CLIENT_ID . ':' . PAYPAL_CLIENT_SECRET,
-        CURLOPT_HTTPHEADER     => array(
-            'Accept: application/json',
-            'Accept-Language: en_US',
-        ),
+        CURLOPT_POSTFIELDS     => $body,
+        CURLOPT_HTTPHEADER     => $headers,
+        CURLOPT_TIMEOUT        => 15,
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_SSL_VERIFYHOST => 0,
     ));
-
-    $response  = curl_exec($ch);
-    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $response = curl_exec($ch);
     curl_close($ch);
-
-    if ($response === false || $http_code !== 200) {
-        return false;
-    }
-
-    $data = json_decode($response, true);
-    return isset($data['access_token']) ? $data['access_token'] : false;
+    return ($response !== false) ? $response : false;
 }
 
-/**
- * Crea una orden de PayPal por el monto indicado en MXN.
- * @param float $amount_mxn Monto total en pesos mexicanos.
- * @return array|false Respuesta decodificada de la API o false en error.
- */
+/* ── 1) Obtener Access Token ────────────────────────── */
+function paypal_get_access_token() {
+    $credentials = base64_encode(PAYPAL_CLIENT_ID . ':' . PAYPAL_CLIENT_SECRET);
+    $headers = array(
+        'Authorization: Basic ' . $credentials,
+        'Accept: application/json',
+        'Accept-Language: en_US',
+        'Content-Type: application/x-www-form-urlencoded',
+    );
+    $response = _pp_http_post(
+        PAYPAL_BASE_URL . '/v1/oauth2/token',
+        $headers,
+        'grant_type=client_credentials'
+    );
+    if ($response === false) {
+        return false;
+    }
+    $data = json_decode($response, true);
+    return (isset($data['access_token'])) ? $data['access_token'] : false;
+}
+
+/* ── 2) Crear orden ─────────────────────────────────── */
 function paypal_create_order($amount_mxn) {
     $access_token = paypal_get_access_token();
     if (!$access_token) {
         return false;
     }
-
-    $payload = array(
+    $payload = json_encode(array(
         'intent'         => 'CAPTURE',
         'purchase_units' => array(
             array(
@@ -86,58 +116,40 @@ function paypal_create_order($amount_mxn) {
                 ),
             ),
         ),
-    );
-
-    $ch = curl_init(PAYPAL_BASE_URL . '/v2/checkout/orders');
-    curl_setopt_array($ch, array(
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POST           => true,
-        CURLOPT_POSTFIELDS     => json_encode($payload),
-        CURLOPT_HTTPHEADER     => array(
-            'Content-Type: application/json',
-            'Authorization: Bearer ' . $access_token,
-        ),
     ));
-
-    $response = curl_exec($ch);
-    curl_close($ch);
-
+    $headers = array(
+        'Authorization: Bearer ' . $access_token,
+        'Content-Type: application/json',
+    );
+    $response = _pp_http_post(
+        PAYPAL_BASE_URL . '/v2/checkout/orders',
+        $headers,
+        $payload
+    );
     if ($response === false) {
         return false;
     }
-
     return json_decode($response, true);
 }
 
-/**
- * Captura una orden de PayPal previamente aprobada.
- * @param string $order_id ID de la orden de PayPal.
- * @return array|false Respuesta decodificada de la API o false en error.
- */
+/* ── 3) Capturar orden ──────────────────────────────── */
 function paypal_capture_order($order_id) {
     $access_token = paypal_get_access_token();
     if (!$access_token) {
         return false;
     }
-
-    $ch = curl_init(PAYPAL_BASE_URL . '/v2/checkout/orders/' . $order_id . '/capture');
-    curl_setopt_array($ch, array(
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POST           => true,
-        CURLOPT_POSTFIELDS     => '{}',
-        CURLOPT_HTTPHEADER     => array(
-            'Content-Type: application/json',
-            'Authorization: Bearer ' . $access_token,
-        ),
-    ));
-
-    $response = curl_exec($ch);
-    curl_close($ch);
-
+    $headers = array(
+        'Authorization: Bearer ' . $access_token,
+        'Content-Type: application/json',
+    );
+    $response = _pp_http_post(
+        PAYPAL_BASE_URL . '/v2/checkout/orders/' . urlencode($order_id) . '/capture',
+        $headers,
+        '{}'
+    );
     if ($response === false) {
         return false;
     }
-
     return json_decode($response, true);
 }
 ?>
