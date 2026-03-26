@@ -7,7 +7,6 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 include 'conectbd.php';
-include 'paypal_config.php';
 
 $xmlFile  = 'carrito.xml';
 $mensaje  = '';
@@ -104,6 +103,7 @@ mysqli_close($conexion);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito - MotoStore</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../assets/css/integradora_carrito.css">
 </head>
 <body>
@@ -125,12 +125,7 @@ mysqli_close($conexion);
         <a href="logout.php" onclick="return confirm('¿Seguro que deseas cerrar sesion?')" class="btn-n">Cerrar Sesion</a>
     </div>
 </nav>
-<div style="text-align:right; padding:10px 32px 0;">
-    <a href="generar_reporte.php" target="_blank"
-       style="background:#1e1e1e; color:#fff; padding:8px 16px; border-radius:6px; text-decoration:none; font-size:14px;">
-        &#128196; Generar Reporte PDF
-    </a>
-</div>
+
 <div class="page">
     <div class="page-lbl">Tu pedido</div>
     <h1>Carrito de<br>Compras</h1>
@@ -146,6 +141,7 @@ mysqli_close($conexion);
         </div>
     <?php } else { ?>
         <div class="tw">
+            <div class="table-responsive">
             <table>
                 <thead><tr><th>#</th><th>Producto</th><th>Precio Unit.</th><th>Cantidad</th><th>Subtotal</th><th>Acciones</th></tr></thead>
                 <tbody>
@@ -174,59 +170,20 @@ mysqli_close($conexion);
                 <?php } ?>
                 </tbody>
             </table>
+            </div>
         </div>
         <div class="summary">
             <div>
                 <div class="s-lbl">Total a pagar</div>
                 <div class="s-tot">$<?php echo number_format($total, 0, '.', ','); ?> MXN</div>
             </div>
-            <form method="POST" action="" onsubmit="return confirm('Confirmar la compra? Se vaciara el carrito.')">
-                <input type="hidden" name="action" value="comprar">
-                <button type="submit" class="btn-buy">&#128661; Comprar Ahora</button>
-            </form>
+            <a href="checkout.php" class="btn-buy">&#128661; Proceder al Pago</a>
         </div>
 
-        <!-- PayPal Button -->
-        <div id="paypal-button-container" style="max-width:400px; margin:24px auto 0;"></div>
-        <script src="https://www.paypal.com/sdk/js?client-id=<?php echo PAYPAL_CLIENT_ID; ?>&currency=MXN"></script>
-        <script>
-            paypal.Buttons({
-                createOrder: function() {
-                    return fetch('paypal_create_order.php', { method: 'POST' })
-                        .then(function(res) { return res.json(); })
-                        .then(function(data) {
-                            if (data.error) { alert('Error: ' + data.error); throw new Error(data.error); }
-                            return data.id;
-                        });
-                },
-                onApprove: function(data) {
-                    return fetch('paypal_capture_order.php', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ orderID: data.orderID })
-                    })
-                    .then(function(res) { return res.json(); })
-                    .then(function(result) {
-                        if (result.success) {
-                            alert('Pago completado con PayPal');
-                            window.location.href = 'galeria.php';
-                        } else {
-                            alert('Error al capturar el pago: ' + (result.error || 'Error desconocido'));
-                        }
-                    });
-                },
-                onError: function(err) {
-                    alert('Ocurrio un error con PayPal: ' + err);
-                }
-            }).render('#paypal-button-container');
-        </script>
 
-        <div class="xml-box">
-            <h3>&#128196; Contenido actual de carrito.xml</h3>
-            <pre><?php echo htmlspecialchars($xmlRaw); ?></pre>
-        </div>
     <?php } ?>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../assets/js/integradora_carrito.js"></script>
 </body>
 </html>

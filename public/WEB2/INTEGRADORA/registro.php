@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - MotoStore</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../assets/css/integradora_login.css">
     <style>
         .alert-success{padding:11px 14px;border-radius:8px;font-size:14px;margin-bottom:18px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#86efac}
@@ -98,6 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="back" style="margin-top:8px"><a href="index.php">&larr; Regresar al Inicio</a></div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../assets/js/integradora_login.js"></script>
 <script>
 function valReg() {

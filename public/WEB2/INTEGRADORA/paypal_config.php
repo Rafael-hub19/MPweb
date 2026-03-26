@@ -1,27 +1,56 @@
 <?php
-// PayPal Sandbox Credentials
-define('PAYPAL_CLIENT_ID',     'YOUR_SANDBOX_CLIENT_ID');
-define('PAYPAL_CLIENT_SECRET', 'YOUR_SANDBOX_CLIENT_SECRET');
-define('PAYPAL_BASE_URL',      'https://api-m.sandbox.paypal.com');
+/* paypal_config.php - Programacion Web 2 - Mtra. Patricia Torres
+   Rafael Avila Sanchez - CETI 8F - 22300193 */
 
 /**
- * Obtiene un access token de PayPal usando las credenciales sandbox.
+ * Carga las variables de entorno desde un archivo .env (PHP 5.5 compatible).
+ * @param string $path Ruta al archivo .env
+ */
+function load_env($path) {
+    if (!file_exists($path)) {
+        return;
+    }
+    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if ($line === '' || $line[0] === '#') {
+            continue;
+        }
+        if (strpos($line, '=') !== false) {
+            $parts = explode('=', $line, 2);
+            $key   = trim($parts[0]);
+            $value = trim($parts[1]);
+            putenv("$key=$value");
+            $_ENV[$key] = $value;
+        }
+    }
+}
+
+load_env(__DIR__ . '/.env');
+
+define('PAYPAL_CLIENT_ID',     getenv('PAYPAL_CLIENT_ID')     !== false ? getenv('PAYPAL_CLIENT_ID')     : '');
+define('PAYPAL_CLIENT_SECRET', getenv('PAYPAL_CLIENT_SECRET') !== false ? getenv('PAYPAL_CLIENT_SECRET') : '');
+define('PAYPAL_MODE',          getenv('PAYPAL_MODE')          !== false ? getenv('PAYPAL_MODE')          : 'sandbox');
+define('PAYPAL_BASE_URL',      PAYPAL_MODE === 'live' ? 'https://api-m.paypal.com' : 'https://api-m.sandbox.paypal.com');
+
+/**
+ * Obtiene un access token de PayPal usando las credenciales configuradas.
  * @return string|false Access token o false en caso de error.
  */
 function paypal_get_access_token() {
     $ch = curl_init(PAYPAL_BASE_URL . '/v1/oauth2/token');
-    curl_setopt_array($ch, [
+    curl_setopt_array($ch, array(
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST           => true,
         CURLOPT_POSTFIELDS     => 'grant_type=client_credentials',
         CURLOPT_USERPWD        => PAYPAL_CLIENT_ID . ':' . PAYPAL_CLIENT_SECRET,
-        CURLOPT_HTTPHEADER     => [
+        CURLOPT_HTTPHEADER     => array(
             'Accept: application/json',
             'Accept-Language: en_US',
-        ],
-    ]);
+        ),
+    ));
 
-    $response = curl_exec($ch);
+    $response  = curl_exec($ch);
     $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
@@ -44,28 +73,28 @@ function paypal_create_order($amount_mxn) {
         return false;
     }
 
-    $payload = [
+    $payload = array(
         'intent'         => 'CAPTURE',
-        'purchase_units' => [
-            [
-                'amount' => [
+        'purchase_units' => array(
+            array(
+                'amount' => array(
                     'currency_code' => 'MXN',
                     'value'         => number_format((float)$amount_mxn, 2, '.', ''),
-                ],
-            ],
-        ],
-    ];
+                ),
+            ),
+        ),
+    );
 
     $ch = curl_init(PAYPAL_BASE_URL . '/v2/checkout/orders');
-    curl_setopt_array($ch, [
+    curl_setopt_array($ch, array(
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST           => true,
         CURLOPT_POSTFIELDS     => json_encode($payload),
-        CURLOPT_HTTPHEADER     => [
+        CURLOPT_HTTPHEADER     => array(
             'Content-Type: application/json',
             'Authorization: Bearer ' . $access_token,
-        ],
-    ]);
+        ),
+    ));
 
     $response = curl_exec($ch);
     curl_close($ch);
@@ -89,15 +118,15 @@ function paypal_capture_order($order_id) {
     }
 
     $ch = curl_init(PAYPAL_BASE_URL . '/v2/checkout/orders/' . $order_id . '/capture');
-    curl_setopt_array($ch, [
+    curl_setopt_array($ch, array(
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST           => true,
         CURLOPT_POSTFIELDS     => '{}',
-        CURLOPT_HTTPHEADER     => [
+        CURLOPT_HTTPHEADER     => array(
             'Content-Type: application/json',
             'Authorization: Bearer ' . $access_token,
-        ],
-    ]);
+        ),
+    ));
 
     $response = curl_exec($ch);
     curl_close($ch);
