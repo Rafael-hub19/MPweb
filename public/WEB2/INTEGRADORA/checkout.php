@@ -158,7 +158,7 @@ mysqli_close($conexion);
             var d = getFormData();
             if (!d.nombre || !d.apellido || !d.telefono || !d.email) {
                 showAlert('Por favor completa todos los campos obligatorios.');
-                return Promise.reject(new Error('Campos incompletos'));
+                return new Promise(function() {}); // Never resolves — PayPal cancels silently
             }
             return fetch('paypal_create_order.php', {
                 method: 'POST',
