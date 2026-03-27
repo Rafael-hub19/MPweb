@@ -53,7 +53,7 @@ $ivaAmount      = round($totalFinal - $subtotalSinIva, 2);
    Cabecera ~70mm (con logo) + por item ~12mm + pie ~60mm
    ═══════════════════════════════════════════════════ */
 $numItems   = count($items);
-$alturaBase = 70 + ($numItems * 14) + 70;
+$alturaBase = 75 + ($numItems * 14) + 65;
 $alturaMin  = 200;
 $altura     = max($alturaBase, $alturaMin);
 
@@ -84,26 +84,24 @@ $w = 74; /* ancho util (80 - 3 - 3) */
 /* ══════════════════ CABECERA ══════════════════════ */
 $logoPath = __DIR__ . '/img/Logo_motostore.png';
 
-/* Fondo negro en cabecera */
-$pdf->SetFillColor(15, 15, 15);
-$pdf->Rect(0, 0, 80, 46, 'F');
-
 /* Logo centrado */
 if (file_exists($logoPath)) {
-    $logoW = 22;
+    $logoW = 28;
     $logoX = (80 - $logoW) / 2;
     $pdf->Image($logoPath, $logoX, 3, $logoW);
+    $pdf->SetY(33);
+} else {
+    $pdf->SetY(5);
 }
 
 /* Nombre tienda */
 $pdf->SetFont('Arial', 'B', 13);
 $pdf->SetTextColor(255, 107, 53);
-$pdf->SetY(27);
 $pdf->Cell($w, 7, 'MOTOSTORE', 0, 1, 'C');
 
 /* Slogan */
 $pdf->SetFont('Arial', '', 7);
-$pdf->SetTextColor(180, 180, 180);
+$pdf->SetTextColor(100, 100, 100);
 $pdf->Cell($w, 4, 'Motocicletas Premium', 0, 1, 'C');
 $pdf->Cell($w, 4, 'Guadalajara, Jalisco', 0, 1, 'C');
 $pdf->Cell($w, 4, 'Tel: (33) 1234-5678', 0, 1, 'C');
@@ -210,21 +208,18 @@ $pdf->Cell($w, 4, 'Ref: ' . $refPaypal, 0, 1, 'C');
 $pdf->Separador('-');
 
 /* ══════════════════ PIE ═══════════════════════════ */
-$pdf->SetFillColor(15, 15, 15);
-$pdf->Rect(0, $pdf->GetY(), 80, $altura, 'F');
-
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->SetTextColor(255, 107, 53);
 $pdf->Cell($w, 5, 'Recoge tu moto en agencia:', 0, 1, 'C');
 
 $pdf->SetFont('Arial', '', 7);
-$pdf->SetTextColor(180, 180, 180);
+$pdf->SetTextColor(100, 100, 100);
 $pdf->Cell($w, 4, 'Av. Vallarta 123, Gdl., Jal.', 0, 1, 'C');
 $pdf->Cell($w, 4, 'Te llamaremos al ' . $orden['telefono'], 0, 1, 'C');
 
 $pdf->Ln(2);
 $pdf->SetFont('Arial', 'I', 7);
-$pdf->SetTextColor(120, 120, 120);
+$pdf->SetTextColor(150, 150, 150);
 $pdf->Cell($w, 4, 'Gracias por tu compra!', 0, 1, 'C');
 $pdf->Cell($w, 4, 'CETI - Prog. Web 2 - 22300193', 0, 1, 'C');
 
