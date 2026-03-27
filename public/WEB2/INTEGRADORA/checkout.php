@@ -76,7 +76,7 @@ mysqli_close($conexion);
 </head>
 <body>
 <nav>
-    <a class="brand" href="index.php">MotoStore</a>
+    <a class="brand" href="index.php"><img src="img/Logo_motostore.png" alt="MotoStore" style="height:42px;vertical-align:middle;filter:drop-shadow(0 0 6px rgba(255,107,53,0.35));"></a>
     <div class="nav-r">
         <a href="galeria.php" class="btn-n">&#128661; Catalogo</a>
         <a href="carrito.php" class="btn-n">&#8592; Carrito</a>

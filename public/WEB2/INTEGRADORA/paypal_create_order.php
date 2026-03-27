@@ -60,13 +60,6 @@ $_SESSION['pedido_data'] = array(
 include 'paypal_config.php';
 include 'conectbd.php';
 
-/* ── Verificar cURL ─────────────────────────────────── */
-if (!function_exists('curl_init')) {
-    ob_end_clean();
-    echo json_encode(array('error' => 'El servidor no tiene habilitada la extension cURL de PHP.'));
-    exit;
-}
-
 /* ── Leer carrito.xml ───────────────────────────────── */
 $carrito_path = __DIR__ . '/carrito.xml';
 

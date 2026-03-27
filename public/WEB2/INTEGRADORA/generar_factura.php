@@ -1,5 +1,5 @@
 <?php
-/* generar_reporte.php - Ticket de Compra en PDF (FPDF)
+/* generar_reporte.php - Factura de Venta en PDF (FPDF)
    Programacion Web 2 - Mtra. Patricia Torres
    Rafael Avila Sanchez - CETI 8F - 22300193 */
 
@@ -44,39 +44,51 @@ while ($row = mysqli_fetch_assoc($resDet)) {
 }
 mysqli_close($conexion);
 
+/* ── Calculos de IVA ────────────────────────────────── */
+$totalFinal   = (float)$orden['total'];
+$subtotalSinIva = round($totalFinal / 1.16, 2);
+$ivaAmount      = round($totalFinal - $subtotalSinIva, 2);
+
 /* ═══════════════════════════════════════════════════
    Clase PDF con cabecera y pie personalizados
    ═══════════════════════════════════════════════════ */
-class TicketPDF extends FPDF {
+class FacturaPDF extends FPDF {
 
-    var $orden;
+    var $logoPath;
 
     function Header() {
         /* Banda superior oscura */
         $this->SetFillColor(15, 15, 15);
-        $this->Rect(0, 0, 216, 42, 'F');
+        $this->Rect(0, 0, 216, 46, 'F');
 
-        /* Nombre de la tienda */
-        $this->SetFont('Arial', 'B', 26);
-        $this->SetTextColor(255, 107, 53);   // naranja #ff6b35
-        $this->SetY(6);
-        $this->Cell(0, 12, 'MOTOSTORE', 0, 1, 'C');
+        /* Logo izquierda */
+        if ($this->logoPath && file_exists($this->logoPath)) {
+            $this->Image($this->logoPath, 8, 4, 34);
+        }
 
-        /* Subtítulo */
-        $this->SetFont('Arial', '', 9);
+        /* Nombre de la tienda (a la derecha del logo) */
+        $this->SetFont('Arial', 'B', 24);
+        $this->SetTextColor(255, 107, 53);
+        $this->SetXY(46, 5);
+        $this->Cell(0, 11, 'MOTOSTORE', 0, 1, 'L');
+
+        /* Subtitulo */
+        $this->SetFont('Arial', '', 8);
         $this->SetTextColor(200, 200, 200);
-        $this->Cell(0, 5, 'Motocicletas Premium  |  Guadalajara, Jalisco, Mexico', 0, 1, 'C');
-        $this->Cell(0, 5, 'Tel: (33) 1234-5678  |  contacto@motostore.mx', 0, 1, 'C');
+        $this->SetX(46);
+        $this->Cell(0, 5, 'Motocicletas Premium  |  Guadalajara, Jalisco, Mexico', 0, 1, 'L');
+        $this->SetX(46);
+        $this->Cell(0, 5, 'Tel: (33) 1234-5678  |  contacto@motostore.mx  |  RFC: MST123456ABC', 0, 1, 'L');
 
         /* Linea separadora naranja */
         $this->SetDrawColor(255, 107, 53);
         $this->SetLineWidth(0.8);
-        $this->Line(10, 42, 200, 42);
+        $this->Line(10, 46, 200, 46);
 
         $this->SetTextColor(0, 0, 0);
         $this->SetDrawColor(0, 0, 0);
         $this->SetLineWidth(0.2);
-        $this->SetY(48);
+        $this->SetY(52);
     }
 
     function Footer() {
@@ -86,18 +98,8 @@ class TicketPDF extends FPDF {
         $this->Ln(2);
         $this->SetFont('Arial', 'I', 8);
         $this->SetTextColor(120, 120, 120);
-        $this->Cell(0, 5, 'Gracias por tu compra en MotoStore. Conserva este ticket como comprobante de pago.', 0, 1, 'C');
+        $this->Cell(0, 5, 'Este documento es una factura de venta. Conservala para efectos fiscales y como comprobante de pago.', 0, 1, 'C');
         $this->Cell(0, 5, 'Pagina ' . $this->PageNo() . '/{nb}  |  Programacion Web 2 - CETI - Rafael Avila Sanchez 22300193', 0, 0, 'C');
-    }
-
-    /* Bloque de info (etiqueta + valor) */
-    function InfoRow($label, $value) {
-        $this->SetFont('Arial', 'B', 9);
-        $this->SetTextColor(100, 100, 100);
-        $this->Cell(45, 6, strtoupper($label), 0, 0, 'L');
-        $this->SetFont('Arial', '', 10);
-        $this->SetTextColor(20, 20, 20);
-        $this->Cell(0, 6, $value, 0, 1, 'L');
     }
 
     /* Cabecera de tabla de productos */
@@ -105,40 +107,40 @@ class TicketPDF extends FPDF {
         $this->SetFillColor(15, 15, 15);
         $this->SetTextColor(255, 255, 255);
         $this->SetFont('Arial', 'B', 9);
-        $this->Cell(70, 7, 'PRODUCTO',    1, 0, 'C', true);
-        $this->Cell(35, 7, 'MARCA',       1, 0, 'C', true);
-        $this->Cell(20, 7, 'CANT.',       1, 0, 'C', true);
-        $this->Cell(30, 7, 'P. UNIT.',    1, 0, 'C', true);
-        $this->Cell(35, 7, 'SUBTOTAL',    1, 1, 'C', true);
+        $this->Cell(70, 7, 'PRODUCTO',      1, 0, 'C', true);
+        $this->Cell(35, 7, 'MARCA',         1, 0, 'C', true);
+        $this->Cell(20, 7, 'CANT.',         1, 0, 'C', true);
+        $this->Cell(30, 7, 'P. UNIT S/IVA', 1, 0, 'C', true);
+        $this->Cell(35, 7, 'SUBTOTAL S/IVA',1, 1, 'C', true);
         $this->SetTextColor(0, 0, 0);
     }
 }
 
 /* ─── Construir el PDF ───────────────────────────────── */
-$pdf = new TicketPDF('P', 'mm', 'Letter');
+$pdf = new FacturaPDF('P', 'mm', 'Letter');
+$pdf->logoPath = __DIR__ . '/img/Logo_motostore.png';
 $pdf->AliasNbPages();
 $pdf->SetMargins(10, 10, 10);
 $pdf->AddPage();
 $pdf->SetAutoPageBreak(true, 25);
 
-/* ── TITULO DEL TICKET ─────────────────────────────── */
+/* ── TITULO: FACTURA ───────────────────────────────── */
 $pdf->SetFillColor(245, 245, 245);
-$pdf->SetFont('Arial', 'B', 14);
+$pdf->SetFont('Arial', 'B', 16);
 $pdf->SetTextColor(15, 15, 15);
-$pdf->Cell(0, 9, 'TICKET DE COMPRA', 'B', 1, 'C', false);
+$pdf->Cell(0, 9, 'FACTURA DE VENTA', 'B', 1, 'C', false);
 $pdf->Ln(4);
 
-/* ── DATOS DE LA ORDEN (dos columnas) ─────────────── */
-/* Columna izquierda */
+/* ── DATOS EN DOS COLUMNAS ─────────────────────────── */
 $xLeft  = 10;
 $xRight = 110;
-$pdf->SetXY($xLeft, $pdf->GetY());
 
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->SetTextColor(255, 107, 53);
-$pdf->Cell(90, 6, 'Datos de la Orden', 0, 0, 'L');
+$pdf->SetXY($xLeft, $pdf->GetY());
+$pdf->Cell(90, 6, 'Datos de la Factura', 0, 0, 'L');
 $pdf->SetXY($xRight, $pdf->GetY());
-$pdf->Cell(0, 6, 'Datos de Contacto', 0, 1, 'L');
+$pdf->Cell(0, 6, 'Datos del Cliente', 0, 1, 'L');
 
 $pdf->SetDrawColor(255, 107, 53);
 $pdf->Line($xLeft,  $pdf->GetY(), $xLeft  + 90, $pdf->GetY());
@@ -148,15 +150,12 @@ $pdf->Ln(2);
 $yInfoStart = $pdf->GetY();
 
 /* Bloque izquierdo */
-$pdf->SetXY($xLeft, $yInfoStart);
-$pdf->SetDrawColor(0, 0, 0);
-
 $infoLeft = array(
-    array('No. Orden',  '#' . str_pad($orden['idOrden'], 6, '0', STR_PAD_LEFT)),
-    array('Fecha',      date('d/m/Y H:i', strtotime($orden['fecha']))),
-    array('Estado',     strtoupper($orden['estado'])),
-    array('Referencia', $orden['paypal_order_id'] ? substr($orden['paypal_order_id'], 0, 20) . '...' : 'N/A'),
-    array('Usuario',    $orden['usuarioU']),
+    array('No. Factura', 'FAC-' . str_pad($orden['idOrden'], 6, '0', STR_PAD_LEFT)),
+    array('Fecha',       date('d/m/Y H:i', strtotime($orden['fecha']))),
+    array('Estado',      strtoupper($orden['estado'])),
+    array('Ref. PayPal', $orden['paypal_order_id'] ? substr($orden['paypal_order_id'], 0, 20) . '...' : 'N/A'),
+    array('Usuario',     $orden['usuarioU']),
 );
 foreach ($infoLeft as $r) {
     $pdf->SetXY($xLeft, $pdf->GetY());
@@ -171,10 +170,11 @@ foreach ($infoLeft as $r) {
 /* Bloque derecho */
 $yRight = $yInfoStart;
 $infoRight = array(
-    array('Nombre',    $orden['nombre'] . ' ' . $orden['apellido']),
-    array('Telefono',  $orden['telefono']),
-    array('Email',     $orden['email']),
-    array('Notas',     $orden['notas'] ? $orden['notas'] : '—'),
+    array('Nombre',   $orden['nombre'] . ' ' . $orden['apellido']),
+    array('Telefono', $orden['telefono']),
+    array('Email',    $orden['email']),
+    array('RFC',      'XAXX010101000'),
+    array('Notas',    $orden['notas'] ? $orden['notas'] : '—'),
 );
 foreach ($infoRight as $r) {
     $pdf->SetXY($xRight, $yRight);
@@ -187,13 +187,12 @@ foreach ($infoRight as $r) {
     $yRight += 6;
 }
 
-/* Ir al punto más bajo de ambas columnas */
 $pdf->SetY(max($pdf->GetY(), $yRight) + 4);
 
 /* ── TABLA DE PRODUCTOS ─────────────────────────── */
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->SetTextColor(255, 107, 53);
-$pdf->Cell(0, 6, 'Productos Adquiridos', 0, 1, 'L');
+$pdf->Cell(0, 6, 'Relacion de Productos', 0, 1, 'L');
 $pdf->SetDrawColor(255, 107, 53);
 $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());
 $pdf->Ln(2);
@@ -202,36 +201,55 @@ $pdf->SetDrawColor(0, 0, 0);
 $pdf->TablaHeader();
 
 $fill = false;
+$grandSubSinIva = 0;
 foreach ($items as $item) {
-    $marca    = isset($item['marcaP'])  ? $item['marcaP']  : '—';
-    $subtotal = $item['precioP'] * $item['cantidad'];
+    $marca         = isset($item['marcaP']) ? $item['marcaP'] : '—';
+    $precioSinIva  = round((float)$item['precioP'] / 1.16, 2);
+    $subtotalSin   = round($precioSinIva * (int)$item['cantidad'], 2);
+    $grandSubSinIva += $subtotalSin;
 
     $pdf->SetFillColor($fill ? 242 : 255, $fill ? 242 : 255, $fill ? 242 : 255);
     $pdf->SetTextColor(20, 20, 20);
     $pdf->SetFont('Arial', '', 9);
 
-    $pdf->Cell(70, 7, $item['nombreP'],                             1, 0, 'L', true);
-    $pdf->Cell(35, 7, $marca,                                       1, 0, 'C', true);
-    $pdf->Cell(20, 7, $item['cantidad'],                            1, 0, 'C', true);
-    $pdf->Cell(30, 7, '$' . number_format($item['precioP'], 2),    1, 0, 'R', true);
-    $pdf->Cell(35, 7, '$' . number_format($subtotal, 2),           1, 1, 'R', true);
+    $pdf->Cell(70, 7, $item['nombreP'],                        1, 0, 'L', true);
+    $pdf->Cell(35, 7, $marca,                                  1, 0, 'C', true);
+    $pdf->Cell(20, 7, $item['cantidad'],                       1, 0, 'C', true);
+    $pdf->Cell(30, 7, '$' . number_format($precioSinIva, 2),   1, 0, 'R', true);
+    $pdf->Cell(35, 7, '$' . number_format($subtotalSin, 2),    1, 1, 'R', true);
     $fill = !$fill;
 }
 
-/* ── FILA TOTAL ──────────────────────────────────── */
+/* ── BLOQUE SUBTOTAL / IVA / TOTAL ───────────────── */
+$colLabel = 155;
+$colVal   = 35;
+
+/* Subtotal sin IVA */
+$pdf->SetFillColor(240, 240, 240);
+$pdf->SetTextColor(40, 40, 40);
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell($colLabel, 7, 'Subtotal (sin IVA)', 1, 0, 'R', true);
+$pdf->Cell($colVal,   7, '$' . number_format($subtotalSinIva, 2), 1, 1, 'R', true);
+
+/* IVA 16% */
+$pdf->SetFillColor(245, 245, 200);
+$pdf->SetTextColor(80, 80, 0);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell($colLabel, 7, 'IVA (16%)', 1, 0, 'R', true);
+$pdf->Cell($colVal,   7, '$' . number_format($ivaAmount, 2), 1, 1, 'R', true);
+
+/* Total */
 $pdf->SetFillColor(15, 15, 15);
 $pdf->SetTextColor(255, 255, 255);
-$pdf->SetFont('Arial', 'B', 11);
-$pdf->Cell(155, 8, 'TOTAL A PAGAR (MXN)', 1, 0, 'R', true);
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(35,  8, '$' . number_format($orden['total'], 2), 1, 1, 'R', true);
+$pdf->Cell($colLabel, 9, 'TOTAL A PAGAR (IVA INCLUIDO) MXN', 1, 0, 'R', true);
+$pdf->Cell($colVal,   9, '$' . number_format($totalFinal, 2), 1, 1, 'R', true);
 
 /* ── NOTA DE RECOGIDA ────────────────────────────── */
 $pdf->Ln(6);
 $pdf->SetFillColor(230, 243, 255);
 $pdf->SetDrawColor(100, 160, 220);
 $pdf->SetLineWidth(0.5);
-
 $pdf->SetTextColor(20, 60, 100);
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(0, 7, '  INFORMACION DE RECOGIDA EN AGENCIA', 1, 1, 'L', true);
@@ -240,18 +258,18 @@ $pdf->SetFillColor(240, 248, 255);
 $pdf->MultiCell(0, 5,
     "  Tu motocicleta estara lista para recoger en nuestra agencia.\n" .
     "  Nos pondremos en contacto al telefono " . $orden['telefono'] . " para coordinar fecha y hora de entrega.\n" .
-    "  Presenta este ticket impreso o en pantalla al momento de recoger tu moto.\n" .
+    "  Presenta esta factura impresa o en pantalla al momento de recoger tu moto.\n" .
     "  Direccion: Av. Vallarta 123, Guadalajara, Jalisco, Mexico.",
     1, 'L', true);
 
-/* ── REFERENCIA PAYPAL ───────────────────────────── */
+/* ── LEYENDA FISCAL ──────────────────────────────── */
 $pdf->Ln(4);
 $pdf->SetFont('Arial', 'I', 8);
 $pdf->SetTextColor(150, 150, 150);
 $pdf->SetDrawColor(200, 200, 200);
 $pdf->SetLineWidth(0.2);
-$pdf->Cell(0, 5, 'Referencia de pago PayPal: ' . ($orden['paypal_order_id'] ? $orden['paypal_order_id'] : 'N/A'), 'T', 1, 'C');
+$pdf->Cell(0, 5, 'Precios expresados en Pesos Mexicanos (MXN). IVA incluido en el total. Referencia PayPal: ' . ($orden['paypal_order_id'] ? $orden['paypal_order_id'] : 'N/A'), 'T', 1, 'C');
 
 /* ── OUTPUT ──────────────────────────────────────── */
-$pdf->Output('I', 'ticket_orden_' . $idOrden . '.pdf');
+$pdf->Output('I', 'factura_' . str_pad($idOrden, 6, '0', STR_PAD_LEFT) . '.pdf');
 ?>

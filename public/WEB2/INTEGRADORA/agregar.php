@@ -86,7 +86,7 @@ mysqli_close($conexion);
 </head>
 <body>
 <div class="card">
-    <div class="brand">MotoStore</div>
+    <div class="brand"><img src="img/Logo_motostore.png" alt="MotoStore" style="height:60px;filter:drop-shadow(0 0 6px rgba(255,107,53,0.35));"></div>
     <h2>Agregar al Carrito</h2>
     <?php if ($mensaje != '') {
         $cls = ($tipo == 'success') ? 'alert-s' : 'alert-e';

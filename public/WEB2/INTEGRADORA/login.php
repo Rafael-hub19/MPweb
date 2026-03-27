@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
 <div class="wrap">
     <div class="brand">
-        <h1>MotoStore</h1>
+        <img src="img/Logo_motostore.png" alt="MotoStore" style="height:90px;filter:drop-shadow(0 0 8px rgba(255,107,53,0.4));margin-bottom:6px;">
         <p>Centro de Ensenanza Tecnica Industrial</p>
     </div>
     <div class="card">
