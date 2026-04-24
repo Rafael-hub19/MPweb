@@ -57,7 +57,7 @@ Tienda en línea de motocicletas con carrito de compras, pago con PayPal (Sandbo
 | Frontend | HTML5, CSS3, Bootstrap 5.3, Google Fonts |
 | Pagos | PayPal SDK JS + REST API v2 (Sandbox) |
 | PDF | FPDF 1.85 |
-| Datos temporales | XML (`carrito.xml`) |
+| Datos temporales | JSON (`carrito.json`) |
 | Despliegue | SFTP automático vía VS Code |
 
 ### Flujo de usuario
@@ -82,23 +82,24 @@ login.php → index.php → galeria.php → agregar.php
 
 | Archivo | Descripción |
 |---|---|
-| `index.php` | Landing page con hero, carrusel y acceso al catálogo |
+| `index.php` | Landing page con hero, estadísticas, productos destacados y acceso al catálogo |
 | `login.php` | Autenticación con sesión PHP |
-| `registro.php` | Registro de nuevos usuarios |
+| `registro.php` | Registro de nuevos usuarios con validación y aceptación de términos |
 | `logout.php` | Cierre de sesión |
-| `galeria.php` | Catálogo de motocicletas con imágenes desde BD |
-| `agregar.php` | Agrega productos al carrito (escribe en `carrito.xml`) |
-| `carrito.php` | Vista del carrito, modificar cantidades y eliminar ítems |
-| `checkout.php` | Formulario de datos de contacto + botones de PayPal |
-| `paypal_create_order.php` | Endpoint: crea la orden en PayPal REST API |
-| `paypal_capture_order.php` | Endpoint: captura el pago y guarda la orden en BD |
-| `confirmacion.php` | Resumen de compra con desglose de IVA y botones de descarga |
+| `galeria.php` | Catálogo de motocicletas con imágenes desde BD y formulario de agregar al carrito |
+| `agregar.php` | Agrega o acumula productos en el carrito (escribe en `carrito.json`) |
+| `carrito.php` | Vista del carrito, modificar cantidades, eliminar ítems y proceder al pago |
+| `checkout.php` | Formulario de datos de contacto + botones de PayPal SDK |
+| `paypal_create_order.php` | Endpoint: crea la orden en PayPal REST API y guarda datos del cliente |
+| `paypal_capture_order.php` | Endpoint: captura el pago, registra la orden en BD y vacía el carrito |
+| `confirmacion.php` | Resumen de compra con desglose de IVA y botones de descarga PDF |
 | `generar_factura.php` | Genera PDF de factura en hoja carta (Letter) con IVA desglosado |
 | `generar_ticket.php` | Genera PDF de ticket estilo térmico (80 mm) con IVA desglosado |
+| `terminos.html` | Página de Términos y Condiciones y Aviso de Privacidad |
 | `paypal_config.php` | Helpers de comunicación con PayPal (token, crear orden, capturar) |
 | `conectbd.php` | Conexión a la base de datos MySQL |
 | `imagen.php` | Sirve imágenes BLOB almacenadas en la BD como respuesta HTTP |
-| `carrito.xml` | Archivo temporal que persiste el estado del carrito |
+| `carrito.json` | Archivo temporal que persiste el estado del carrito entre páginas |
 | `.env` | Variables de entorno con credenciales PayPal (no se sube al repo) |
 
 ### Variables de entorno (`.env`)
@@ -227,6 +228,7 @@ Ubicación: `public/WEB2/PRACTICAS/`
 | Carpeta | Contenido |
 |---|---|
 | `CRUD_XML/` | CRUD completo usando XML como fuente de datos en PHP |
+| `CRUD_DULCERIA/` | CRUD de dulcería: galería dinámica desde BD MySQL con carrito en JSON y pago simulado |
 
 ---
 
@@ -305,4 +307,4 @@ Archivos **excluidos** del despliegue automático: `.vscode/`, `.git/`, `.env`, 
 
 ---
 
-*Programación Web 2 — Mtra. Patricia Torres — CETI TNL — 2025*
+*Programación Web 2 — Mtra. Patricia Torres — CETI TNL — 2026*

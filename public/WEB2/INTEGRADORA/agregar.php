@@ -126,17 +126,20 @@ mysqli_close($conexion);
 </div>
 
 <!-- ========== FOOTER ========== -->
-<footer class="site-footer">
-    <div class="footer-links">
-        <a href="index.php">Inicio</a>
-        <a href="galeria.php">Cat&aacute;logo</a>
-        <a href="carrito.php">Carrito</a>
-        <a href="terminos.html" target="_blank">T&eacute;rminos y Condiciones</a>
-        <a href="logout.php" onclick="return confirm('&iquest;Seguro que deseas cerrar sesion?')">Salir</a>
-    </div>
-    <div class="footer-copy">
-        &copy; 2026 MotoStore &mdash; Rafael Avila Sanchez &middot; CETI 8F &middot; 22300193<br>
-        Programacion Web 2 &mdash; Mtra. Patricia Torres
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">MotoStore</div>
+        <div class="footer-links">
+            <a href="index.php">Inicio</a>
+            <a href="galeria.php">Cat&aacute;logo</a>
+            <a href="carrito.php">Carrito</a>
+            <a href="terminos.html">T&eacute;rminos y Condiciones</a>
+            <a href="logout.php" onclick="return confirm('&iquest;Seguro que deseas cerrar sesion?')">Salir</a>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 MotoStore &mdash; Rafael Avila Sanchez &middot; CETI 8F &middot; 22300193<br>
+            Programacion Web 2 &mdash; Mtra. Patricia Torres
+        </div>
     </div>
 </footer>
 <script src="../../assets/js/integradora_agregar.js"></script>

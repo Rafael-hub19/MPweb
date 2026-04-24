@@ -73,16 +73,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="back" style="margin-top:8px"><a href="index.php">&larr; Regresar al Inicio</a></div>
     </div>
 </div>
-<footer class="site-footer">
-    <div class="footer-links">
-        <a href="index.php">Inicio</a>
-        <a href="galeria.php">Cat&aacute;logo</a>
-        <a href="terminos.html" target="_blank">T&eacute;rminos y Condiciones</a>
-        <a href="registro.php">Crear Cuenta</a>
-    </div>
-    <div class="footer-copy">
-        &copy; 2026 MotoStore &mdash; Rafael Avila Sanchez &middot; CETI 8F &middot; 22300193<br>
-        Programacion Web 2 &mdash; Mtra. Patricia Torres
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">MotoStore</div>
+        <div class="footer-links">
+            <a href="index.php">Inicio</a>
+            <a href="galeria.php">Cat&aacute;logo</a>
+            <a href="terminos.html">T&eacute;rminos y Condiciones</a>
+            <a href="registro.php">Crear Cuenta</a>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 MotoStore &mdash; Rafael Avila Sanchez &middot; CETI 8F &middot; 22300193<br>
+            Programacion Web 2 &mdash; Mtra. Patricia Torres
+        </div>
     </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

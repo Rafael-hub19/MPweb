@@ -257,6 +257,7 @@ $ivaAmount      = round($totalFinal - $subtotalSinIva, 2);
         <div class="footer-links">
             <a href="index.php">Inicio</a>
             <a href="galeria.php">Cat&aacute;logo</a>
+            <a href="carrito.php">Carrito</a>
             <a href="terminos.html">T&eacute;rminos y Condiciones</a>
             <a href="logout.php" onclick="return confirm('&iquest;Seguro que deseas cerrar sesion?')">Salir</a>
         </div>
