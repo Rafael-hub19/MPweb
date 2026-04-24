@@ -10,29 +10,29 @@ if (!isset($_SESSION['usuario'])) {
 include 'conectbd.php';
 include 'paypal_config.php';
 
-$xmlFile = __DIR__ . '/carrito.xml';
+$jsonFile = __DIR__ . '/carrito.json';
 
-if (!file_exists($xmlFile)) {
+if (!file_exists($jsonFile)) {
     header('Location: carrito.php');
     exit();
 }
 
-$xmlData = simplexml_load_file($xmlFile);
-if ($xmlData === false || count($xmlData->item) == 0) {
+$carrito = json_decode(file_get_contents($jsonFile), true);
+if (!is_array($carrito) || count($carrito) == 0) {
     header('Location: carrito.php');
     exit();
 }
 
 $items = array();
 $total = 0.0;
-foreach ($xmlData->item as $it) {
+foreach ($carrito as $it) {
     $items[] = array(
-        'idP'      => (int)$it->idP,
-        'nombre'   => (string)$it->nombre,
-        'precio'   => (float)$it->precio,
-        'cantidad' => (int)$it->cantidad,
+        'idP'      => (int)$it['idP'],
+        'nombre'   => (string)$it['nombre'],
+        'precio'   => (float)$it['precio'],
+        'cantidad' => (int)$it['cantidad'],
     );
-    $total += (float)$it->precio * (int)$it->cantidad;
+    $total += (float)$it['precio'] * (int)$it['cantidad'];
 }
 
 mysqli_close($conexion);
@@ -72,6 +72,13 @@ mysqli_close($conexion);
         .alert { background:#2a1a1a; border:1px solid #c0392b; color:#e74c3c; padding:12px 16px; border-radius:8px; margin-bottom:16px; font-size:14px; }
         .pickup-note { background:#1a1f2a; border:1px solid #2a3f5a; border-radius:10px; padding:14px 18px; margin-bottom:20px; font-size:13px; color:#8ab4d4; line-height:1.6; }
         .pickup-note strong { color:#ff6b35; }
+        footer { background:#0d1117; border-top:1px solid rgba(255,255,255,.07); padding:40px 32px; margin-top:32px; }
+        .footer-inner { max-width:1100px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:20px; text-align:center; }
+        .footer-brand { font-family:'Bebas Neue',sans-serif; font-size:30px; letter-spacing:3px; color:#f97316; }
+        .footer-links { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
+        .footer-links a { color:#64748b; text-decoration:none; font-size:14px; transition:color .2s; }
+        .footer-links a:hover { color:#f97316; }
+        .footer-copy { color:#334155; font-size:12px; line-height:1.7; }
     </style>
 </head>
 <body>
@@ -192,5 +199,23 @@ mysqli_close($conexion);
         }
     }).render('#paypal-button-container');
 </script>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">MotoStore</div>
+        <div class="footer-links">
+            <a href="index.php">Inicio</a>
+            <a href="galeria.php">Cat&aacute;logo</a>
+            <a href="carrito.php">Carrito</a>
+            <a href="terminos.html">T&eacute;rminos y Condiciones</a>
+            <a href="logout.php" onclick="return confirm('&iquest;Seguro que deseas cerrar sesion?')">Salir</a>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 MotoStore &mdash; Rafael Avila Sanchez &middot; CETI 8F &middot; 22300193<br>
+            Programacion Web 2 &mdash; Mtra. Patricia Torres
+        </div>
+    </div>
+</footer>
 </body>
 </html>

@@ -212,6 +212,7 @@ mysqli_close($conexion);
                 <a href="login.php">Iniciar Sesion</a>
                 <a href="registro.php">Registro</a>
             <?php } ?>
+            <a href="terminos.html">T&eacute;rminos y Condiciones</a>
             <a href="../web2.html">WEB 2</a>
         </div>
         <div class="footer-copy">

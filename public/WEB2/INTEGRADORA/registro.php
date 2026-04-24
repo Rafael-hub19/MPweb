@@ -85,6 +85,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="c">Confirmar Contrasena</label>
                 <input type="password" id="c" name="confirmar" placeholder="Repite tu contrasena" required>
             </div>
+            <div class="field" style="flex-direction:row;align-items:flex-start;gap:10px;margin-top:4px;">
+                <input type="checkbox" id="terminos" name="terminos" required style="margin-top:3px;accent-color:#f97316;width:16px;height:16px;flex-shrink:0;">
+                <label for="terminos" style="font-size:13px;color:#94a3b8;font-weight:400;cursor:pointer;">
+                    He le&iacute;do y acepto los
+                    <a href="terminos.html" target="_blank" style="color:#f97316;text-decoration:underline;">T&eacute;rminos y Condiciones</a>
+                    y el Aviso de Privacidad de MotoStore.
+                </label>
+            </div>
             <button type="submit" class="btn">Registrarse</button>
         </form>
         <?php } ?>
@@ -99,6 +107,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="back" style="margin-top:8px"><a href="index.php">&larr; Regresar al Inicio</a></div>
     </div>
 </div>
+<footer class="site-footer">
+    <div class="footer-links">
+        <a href="index.php">Inicio</a>
+        <a href="galeria.php">Cat&aacute;logo</a>
+        <a href="terminos.html" target="_blank">T&eacute;rminos y Condiciones</a>
+        <a href="login.php">Iniciar Sesi&oacute;n</a>
+    </div>
+    <div class="footer-copy">
+        &copy; 2026 MotoStore &mdash; Rafael Avila Sanchez &middot; CETI 8F &middot; 22300193<br>
+        Programacion Web 2 &mdash; Mtra. Patricia Torres
+    </div>
+</footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../assets/js/integradora_login.js"></script>
 <script>
@@ -106,9 +126,11 @@ function valReg() {
     var u = document.getElementById('u').value.trim();
     var p = document.getElementById('p').value.trim();
     var c = document.getElementById('c').value.trim();
+    var t = document.getElementById('terminos');
     if (u.length < 3) { alert('El usuario debe tener al menos 3 caracteres.'); return false; }
     if (p.length < 4) { alert('La contrasena debe tener al menos 4 caracteres.'); return false; }
     if (p !== c) { alert('Las contrasenas no coinciden.'); return false; }
+    if (!t.checked) { alert('Debes aceptar los Terminos y Condiciones para registrarte.'); return false; }
     return true;
 }
 </script>

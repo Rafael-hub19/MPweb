@@ -125,3 +125,21 @@ input:focus { border-color: #f97316; }
 .links a:hover { text-decoration: underline; }
 
 @media (max-width: 480px) { .card { padding: 26px 16px; } }
+
+/* ===== FOOTER ===== */
+.site-footer {
+    background: #0d1117;
+    border-top: 1px solid rgba(255,255,255,.07);
+    padding: 28px 32px;
+    text-align: center;
+    margin-top: 24px;
+}
+.site-footer .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 8px; }
+.site-footer .footer-links a {
+    color: #64748b;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color .2s;
+}
+.site-footer .footer-links a:hover { color: #f97316; }
+.site-footer .footer-copy { color: #334155; font-size: 12px; line-height: 1.7; }

@@ -60,8 +60,8 @@ $_SESSION['pedido_data'] = array(
 include 'paypal_config.php';
 include 'conectbd.php';
 
-/* ── Leer carrito.xml ───────────────────────────────── */
-$carrito_path = __DIR__ . '/carrito.xml';
+/* ── Leer carrito.json ──────────────────────────────── */
+$carrito_path = __DIR__ . '/carrito.json';
 
 if (!file_exists($carrito_path)) {
     ob_end_clean();
@@ -69,17 +69,17 @@ if (!file_exists($carrito_path)) {
     exit;
 }
 
-$xml = simplexml_load_file($carrito_path);
+$carrito = json_decode(file_get_contents($carrito_path), true);
 
-if ($xml === false || count($xml->item) == 0) {
+if (!is_array($carrito) || count($carrito) == 0) {
     ob_end_clean();
     echo json_encode(array('error' => 'El carrito esta vacio.'));
     exit;
 }
 
 $total = 0.0;
-foreach ($xml->item as $item) {
-    $total += (float)$item->precio * (int)$item->cantidad;
+foreach ($carrito as $item) {
+    $total += (float)$item['precio'] * (int)$item['cantidad'];
 }
 
 if ($total <= 0) {

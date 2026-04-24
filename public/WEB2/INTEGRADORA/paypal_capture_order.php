@@ -79,22 +79,22 @@ $telefono = isset($pedido['telefono']) ? $pedido['telefono'] : '';
 $email    = isset($pedido['email'])    ? $pedido['email']    : '';
 $notas    = isset($pedido['notas'])    ? $pedido['notas']    : '';
 
-/* ── Leer carrito.xml ───────────────────────────────── */
-$carrito_path = __DIR__ . '/carrito.xml';
+/* ── Leer carrito.json ──────────────────────────────── */
+$carrito_path = __DIR__ . '/carrito.json';
 $items = array();
 $total = 0.0;
 
 if (file_exists($carrito_path)) {
-    $xml = simplexml_load_file($carrito_path);
-    if ($xml !== false && count($xml->item) > 0) {
-        foreach ($xml->item as $item) {
-            $idP      = (int)$item->idP;
-            $cantidad = (int)$item->cantidad;
-            $precio   = (float)$item->precio;
+    $carrito = json_decode(file_get_contents($carrito_path), true);
+    if (is_array($carrito) && count($carrito) > 0) {
+        foreach ($carrito as $item) {
+            $idP      = (int)$item['idP'];
+            $cantidad = (int)$item['cantidad'];
+            $precio   = (float)$item['precio'];
             if ($idP > 0 && $cantidad > 0) {
                 $items[] = array(
                     'idP'      => $idP,
-                    'nombre'   => (string)$item->nombre,
+                    'nombre'   => (string)$item['nombre'],
                     'precio'   => $precio,
                     'cantidad' => $cantidad,
                 );
@@ -155,9 +155,7 @@ foreach ($items as $item) {
 }
 
 /* ── Vaciar carrito y limpiar sesion ────────────────── */
-file_put_contents($carrito_path,
-    '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<carrito/>' . "\n"
-);
+file_put_contents($carrito_path, json_encode(array()));
 unset($_SESSION['pedido_data']);
 
 ob_end_clean();

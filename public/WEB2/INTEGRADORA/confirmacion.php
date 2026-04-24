@@ -103,6 +103,13 @@ $ivaAmount      = round($totalFinal - $subtotalSinIva, 2);
         .btn-ticket:hover { background:#2a2a2a; color:#e8e8e8; }
         .success-ico { font-size:64px; margin-bottom:12px; }
         .actions { display:flex; flex-wrap:wrap; align-items:center; gap:0; }
+        footer { background:#0d1117; border-top:1px solid rgba(255,255,255,.07); padding:40px 32px; margin-top:32px; }
+        .footer-inner { max-width:1100px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:20px; text-align:center; }
+        .footer-brand { font-family:'Bebas Neue',sans-serif; font-size:30px; letter-spacing:3px; color:#f97316; }
+        .footer-links { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
+        .footer-links a { color:#64748b; text-decoration:none; font-size:14px; transition:color .2s; }
+        .footer-links a:hover { color:#f97316; }
+        .footer-copy { color:#334155; font-size:12px; line-height:1.7; }
     </style>
 </head>
 <body>
@@ -242,6 +249,23 @@ $ivaAmount      = round($totalFinal - $subtotalSinIva, 2);
         <a href="galeria.php" class="btn-pri">&#128661; Seguir Comprando</a>
     </div>
 </div>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">MotoStore</div>
+        <div class="footer-links">
+            <a href="index.php">Inicio</a>
+            <a href="galeria.php">Cat&aacute;logo</a>
+            <a href="terminos.html">T&eacute;rminos y Condiciones</a>
+            <a href="logout.php" onclick="return confirm('&iquest;Seguro que deseas cerrar sesion?')">Salir</a>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 MotoStore &mdash; Rafael Avila Sanchez &middot; CETI 8F &middot; 22300193<br>
+            Programacion Web 2 &mdash; Mtra. Patricia Torres
+        </div>
+    </div>
+</footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

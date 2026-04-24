@@ -8,10 +8,17 @@ if (!isset($_SESSION['usuario'])) {
 }
 include 'conectbd.php';
 
-$xmlFile  = 'carrito.xml';
+$jsonFile = 'carrito.json';
 $mensaje  = '';
 $tipo     = '';
 $compraOk = false;
+
+/* ── Funcion auxiliar: cargar carrito ── */
+function cargar_carrito($jsonFile) {
+    if (!file_exists($jsonFile)) return array();
+    $dec = json_decode(file_get_contents($jsonFile), true);
+    return is_array($dec) ? $dec : array();
+}
 
 /* UPDATE */
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'actualizar') {
@@ -23,11 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     } elseif ($cantidad > 99) {
         $mensaje = 'La cantidad maxima es 99.';
         $tipo    = 'error';
-    } elseif (file_exists($xmlFile)) {
-        $xml = simplexml_load_file($xmlFile);
-        if (isset($xml->item[$idx])) {
-            $xml->item[$idx]->cantidad = $cantidad;
-            $xml->asXML($xmlFile);
+    } else {
+        $carrito = cargar_carrito($jsonFile);
+        if (isset($carrito[$idx])) {
+            $carrito[$idx]['cantidad'] = $cantidad;
+            file_put_contents($jsonFile, json_encode($carrito));
             $mensaje = 'Cantidad actualizada.';
             $tipo    = 'success';
         } else {
@@ -39,61 +46,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
 
 /* DELETE */
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'eliminar') {
-    $idx = isset($_POST['idx']) ? intval($_POST['idx']) : -1;
-    if (file_exists($xmlFile)) {
-        $xml = simplexml_load_file($xmlFile);
-        if (isset($xml->item[$idx])) {
-            unset($xml->item[$idx]);
-            $xml->asXML($xmlFile);
-            $mensaje = 'Producto eliminado del carrito.';
-            $tipo    = 'success';
-        } else {
-            $mensaje = 'Producto no encontrado.';
-            $tipo    = 'error';
-        }
+    $idx     = isset($_POST['idx']) ? intval($_POST['idx']) : -1;
+    $carrito = cargar_carrito($jsonFile);
+    if (isset($carrito[$idx])) {
+        array_splice($carrito, $idx, 1);
+        file_put_contents($jsonFile, json_encode($carrito));
+        $mensaje = 'Producto eliminado del carrito.';
+        $tipo    = 'success';
+    } else {
+        $mensaje = 'Producto no encontrado.';
+        $tipo    = 'error';
     }
 }
 
 /* COMPRAR */
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'comprar') {
-    if (!file_exists($xmlFile)) {
+    $carrito = cargar_carrito($jsonFile);
+    if (count($carrito) == 0) {
         $mensaje = 'El carrito esta vacio.';
         $tipo    = 'error';
     } else {
-        $xml = simplexml_load_file($xmlFile);
-        if (count($xml->item) == 0) {
-            $mensaje = 'El carrito esta vacio.';
-            $tipo    = 'error';
-        } else {
-            foreach ($xml->item as $item) {
-                $idP      = intval($item->idP);
-                $cantidad = intval($item->cantidad);
-                $sql = "UPDATE `productos` SET `existenciaP` = `existenciaP` - $cantidad WHERE `idP` = $idP AND `existenciaP` >= $cantidad";
-                mysqli_query($conexion, $sql);
-            }
-            $xmlNuevo = new SimpleXMLElement('<carrito/>');
-            $xmlNuevo->asXML($xmlFile);
-            $compraOk = true;
+        foreach ($carrito as $item) {
+            $idP      = intval($item['idP']);
+            $cantidad = intval($item['cantidad']);
+            $sql = "UPDATE `productos` SET `existenciaP` = `existenciaP` - $cantidad WHERE `idP` = $idP AND `existenciaP` >= $cantidad";
+            mysqli_query($conexion, $sql);
         }
+        file_put_contents($jsonFile, json_encode(array()));
+        $compraOk = true;
     }
 }
 
 /* READ */
-$items = array();
-$total = 0;
-if (file_exists($xmlFile)) {
-    $xml = simplexml_load_file($xmlFile);
-    foreach ($xml->item as $it) {
-        $items[] = array(
-            'idP'      => (int)$it->idP,
-            'nombre'   => (string)$it->nombre,
-            'precio'   => (float)$it->precio,
-            'cantidad' => (int)$it->cantidad,
-        );
-        $total += (float)$it->precio * (int)$it->cantidad;
-    }
+$items   = array();
+$total   = 0;
+$carrito = cargar_carrito($jsonFile);
+foreach ($carrito as $it) {
+    $items[] = array(
+        'idP'      => (int)$it['idP'],
+        'nombre'   => (string)$it['nombre'],
+        'precio'   => (float)$it['precio'],
+        'cantidad' => (int)$it['cantidad'],
+    );
+    $total += (float)$it['precio'] * (int)$it['cantidad'];
 }
-$xmlRaw = file_exists($xmlFile) ? file_get_contents($xmlFile) : '<carrito/>';
+$jsonRaw = file_exists($jsonFile) ? file_get_contents($jsonFile) : '[]';
 mysqli_close($conexion);
 ?>
 <!DOCTYPE html>
@@ -183,6 +180,24 @@ mysqli_close($conexion);
 
     <?php } ?>
 </div>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">MotoStore</div>
+        <div class="footer-links">
+            <a href="index.php">Inicio</a>
+            <a href="galeria.php">Cat&aacute;logo</a>
+            <a href="carrito.php">Carrito</a>
+            <a href="terminos.html">T&eacute;rminos y Condiciones</a>
+            <a href="logout.php" onclick="return confirm('&iquest;Seguro que deseas cerrar sesion?')">Salir</a>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 MotoStore &mdash; Rafael Avila Sanchez &middot; CETI 8F &middot; 22300193<br>
+            Programacion Web 2 &mdash; Mtra. Patricia Torres
+        </div>
+    </div>
+</footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../assets/js/integradora_carrito.js"></script>
 </body>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos y Condiciones — MotoStore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #080c10;
+            color: #e2e8f0;
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: #0d1117;
+            border-bottom: 1px solid rgba(249,115,22,.25);
+            padding: 18px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .header-brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            letter-spacing: 3px;
+            color: #f97316;
+            text-decoration: none;
+        }
+        .header-nav { display: flex; gap: 22px; flex-wrap: wrap; }
+        .header-nav a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color .2s;
+        }
+        .header-nav a:hover { color: #f97316; }
+
+        /* ===== HERO BANNER ===== */
+        .tc-hero {
+            background: linear-gradient(135deg, #0d1117 0%, #1a0a00 50%, #0d1117 100%);
+            border-bottom: 1px solid rgba(249,115,22,.15);
+            padding: 56px 32px 44px;
+            text-align: center;
+        }
+        .tc-hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(36px, 6vw, 64px);
+            letter-spacing: 4px;
+            color: #f97316;
+            margin-bottom: 10px;
+        }
+        .tc-hero p {
+            color: #94a3b8;
+            font-size: 15px;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .tc-meta {
+            display: inline-flex;
+            gap: 28px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .tc-meta span {
+            font-size: 13px;
+            color: #64748b;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 6px;
+            padding: 4px 12px;
+        }
+        .tc-meta span strong { color: #f97316; }
+
+        /* ===== INDEX NAV ===== */
+        .tc-index {
+            background: #0d1117;
+            border-bottom: 1px solid rgba(255,255,255,.06);
+            padding: 18px 32px;
+        }
+        .tc-index-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px 20px;
+            flex-wrap: wrap;
+        }
+        .tc-index a {
+            color: #64748b;
+            font-size: 13px;
+            text-decoration: none;
+            padding: 3px 0;
+            transition: color .2s;
+        }
+        .tc-index a:hover { color: #f97316; }
+
+        /* ===== MAIN CONTENT ===== */
+        main {
+            flex: 1;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 48px 24px 64px;
+        }
+
+        /* ===== SECTIONS ===== */
+        .tc-section {
+            margin-bottom: 48px;
+            scroll-margin-top: 80px;
+        }
+        .tc-section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(249,115,22,.2);
+        }
+        .tc-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px;
+            color: #f97316;
+            line-height: 1;
+            min-width: 42px;
+        }
+        .tc-section-header h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 2px;
+            color: #f1f5f9;
+        }
+        .tc-section p {
+            color: #94a3b8;
+            font-size: 15px;
+            margin-bottom: 14px;
+        }
+        .tc-section ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 14px;
+        }
+        .tc-section ul li {
+            color: #94a3b8;
+            font-size: 15px;
+            padding: 5px 0 5px 20px;
+            position: relative;
+        }
+        .tc-section ul li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: #f97316;
+            font-weight: 700;
+        }
+        .tc-box {
+            background: rgba(249,115,22,.07);
+            border: 1px solid rgba(249,115,22,.2);
+            border-left: 3px solid #f97316;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin: 16px 0;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+        .tc-box strong { color: #fb923c; }
+        .tc-highlight {
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin: 16px 0;
+        }
+        .tc-highlight h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 17px;
+            letter-spacing: 1px;
+            color: #f1f5f9;
+            margin-bottom: 10px;
+        }
+
+        /* ===== LEGAL TABLE ===== */
+        .tc-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin: 16px 0;
+        }
+        .tc-table th {
+            background: rgba(249,115,22,.12);
+            color: #fb923c;
+            font-weight: 600;
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid rgba(249,115,22,.25);
+        }
+        .tc-table td {
+            padding: 10px 14px;
+            color: #94a3b8;
+            border-bottom: 1px solid rgba(255,255,255,.05);
+            vertical-align: top;
+        }
+        .tc-table tr:hover td { background: rgba(255,255,255,.02); }
+
+        /* ===== ACCEPTANCE BANNER ===== */
+        .tc-accept {
+            background: rgba(249,115,22,.08);
+            border: 1px solid rgba(249,115,22,.25);
+            border-radius: 12px;
+            padding: 24px 28px;
+            text-align: center;
+            margin-top: 48px;
+        }
+        .tc-accept p { color: #94a3b8; font-size: 15px; margin-bottom: 14px; }
+        .tc-accept a {
+            display: inline-block;
+            background: #f97316;
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 10px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background .2s;
+        }
+        .tc-accept a:hover { background: #ea6f10; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0d1117;
+            border-top: 1px solid rgba(255,255,255,.07);
+            padding: 40px 32px;
+        }
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            text-align: center;
+        }
+        .footer-brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 30px;
+            letter-spacing: 3px;
+            color: #f97316;
+        }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .footer-links a {
+            color: #64748b;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color .2s;
+        }
+        .footer-links a:hover { color: #f97316; }
+        .footer-copy { color: #334155; font-size: 12px; line-height: 1.7; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            header { padding: 14px 18px; }
+            .tc-hero { padding: 36px 18px 28px; }
+            main { padding: 32px 16px 48px; }
+            .tc-table th, .tc-table td { padding: 8px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header>
+    <a class="header-brand" href="index.php">MotoStore</a>
+    <nav class="header-nav">
+        <a href="index.php">Inicio</a>
+        <a href="galeria.php">Catálogo</a>
+        <a href="login.php">Iniciar Sesión</a>
+        <a href="registro.php">Registro</a>
+    </nav>
+</header>
+
+<!-- ========== HERO ========== -->
+<div class="tc-hero">
+    <h1>Términos y Condiciones</h1>
+    <p>Al acceder o utilizar la plataforma MotoStore aceptas de manera plena y sin reservas las disposiciones contenidas en el presente documento.</p>
+    <div class="tc-meta">
+        <span><strong>Tienda:</strong> MotoStore</span>
+        <span><strong>Elaborado:</strong> 24 de abril de 2026</span>
+        <span><strong>Vigencia:</strong> Inmediata a su publicación</span>
+    </div>
+</div>
+
+<!-- ========== INDEX ========== -->
+<div class="tc-index">
+    <div class="tc-index-inner">
+        <a href="#uso">1. Uso del sitio</a>
+        <a href="#registro">2. Registro y cuentas</a>
+        <a href="#propiedad">3. Propiedad intelectual</a>
+        <a href="#privacidad">4. Privacidad y datos</a>
+        <a href="#compra">5. Proceso de compra</a>
+        <a href="#precios">6. Precios y promociones</a>
+        <a href="#envios">7. Envíos y entregas</a>
+        <a href="#devoluciones">8. Devoluciones y reembolsos</a>
+        <a href="#responsabilidad">9. Responsabilidad y limitaciones</a>
+        <a href="#legal">10. Cumplimiento legal</a>
+        <a href="#modificaciones">11. Modificaciones y vigencia</a>
+    </div>
+</div>
+
+<!-- ========== MAIN ========== -->
+<main>
+
+    <!-- 1. USO DEL SITIO -->
+    <section class="tc-section" id="uso">
+        <div class="tc-section-header">
+            <span class="tc-num">01</span>
+            <h2>Uso del Sitio</h2>
+        </div>
+        <p>MotoStore es una plataforma de comercio electrónico especializada en la venta de motocicletas, accesorios y refacciones. El acceso y uso de este sitio implica la aceptación plena de los presentes Términos y Condiciones.</p>
+        <p>El usuario se compromete a utilizar MotoStore únicamente para fines lícitos, legítimos y de acuerdo con la normativa vigente en los Estados Unidos Mexicanos. Queda expresamente prohibido:</p>
+        <ul>
+            <li>Realizar compras fraudulentas o con datos de pago ajenos.</li>
+            <li>Proporcionar información falsa, incompleta o engañosa en cualquier formulario del sitio.</li>
+            <li>Utilizar herramientas automatizadas (bots, scrapers) para acceder, extraer o manipular contenido.</li>
+            <li>Intentar vulnerar los sistemas de seguridad, bases de datos o infraestructura tecnológica del sitio.</li>
+            <li>Publicar, transmitir o distribuir contenido ilegal, ofensivo, difamatorio o que infrinja derechos de terceros.</li>
+            <li>Revender productos adquiridos sin la autorización expresa de MotoStore.</li>
+        </ul>
+        <div class="tc-box">
+            <strong>Nota:</strong> El incumplimiento de estas disposiciones podrá resultar en la suspensión inmediata de la cuenta del usuario y, en su caso, en el ejercicio de acciones legales conforme a la legislación mexicana aplicable.
+        </div>
+    </section>
+
+    <!-- 2. REGISTRO Y CUENTAS -->
+    <section class="tc-section" id="registro">
+        <div class="tc-section-header">
+            <span class="tc-num">02</span>
+            <h2>Registro y Cuentas</h2>
+        </div>
+        <p>Para acceder a las funcionalidades de compra de MotoStore es necesario crear una cuenta de usuario. Al registrarse, el usuario declara bajo su responsabilidad que:</p>
+        <ul>
+            <li>Tiene al menos 18 años de edad o cuenta con autorización de su tutor legal.</li>
+            <li>La información proporcionada durante el registro es veraz, exacta y actualizada.</li>
+            <li>El nombre de usuario elegido no infringe derechos de terceros ni contiene lenguaje inapropiado.</li>
+            <li>Se compromete a actualizar sus datos en caso de que éstos cambien.</li>
+        </ul>
+        <div class="tc-highlight">
+            <h3>Seguridad de la contraseña</h3>
+            <p style="color:#94a3b8;font-size:14px;margin:0">El cliente es responsable de mantener la confidencialidad de su contraseña y de todas las actividades que se realicen bajo su cuenta. MotoStore no solicitará tu contraseña por ningún medio. En caso de pérdida o acceso no autorizado, deberás notificarlo de inmediato para proceder al bloqueo de la cuenta.</p>
+        </div>
+        <p>MotoStore se reserva el derecho de suspender o eliminar cuentas que incumplan los presentes Términos, proporcionen información falsa o estén relacionadas con actividades fraudulentas, sin que esto genere derecho a indemnización alguna para el usuario.</p>
+    </section>
+
+    <!-- 3. PROPIEDAD INTELECTUAL -->
+    <section class="tc-section" id="propiedad">
+        <div class="tc-section-header">
+            <span class="tc-num">03</span>
+            <h2>Propiedad Intelectual</h2>
+        </div>
+        <p>Todos los elementos que conforman el sitio MotoStore, incluyendo de manera enunciativa mas no limitativa: logotipos, marcas, nombre comercial, textos, fotografías, ilustraciones, videos, diseños, código fuente, interfaces y estructura de navegación, son propiedad exclusiva de MotoStore o de sus respectivos proveedores y fabricantes, y se encuentran protegidos por las leyes mexicanas e internacionales en materia de propiedad intelectual.</p>
+        <ul>
+            <li>Las fotografías de productos no pueden ser reproducidas, modificadas ni distribuidas sin autorización escrita de MotoStore.</li>
+            <li>Las marcas de los fabricantes de motocicletas y accesorios son propiedad de sus respectivos titulares.</li>
+            <li>Queda prohibida la copia, reproducción, distribución, transmisión o cualquier otro uso no autorizado del contenido del sitio.</li>
+            <li>El código fuente de la plataforma está protegido bajo la Ley Federal del Derecho de Autor (LFDA).</li>
+        </ul>
+        <div class="tc-box">
+            <strong>Aviso:</strong> Cualquier uso no autorizado del contenido de este sitio podrá constituir una violación a la Ley Federal del Derecho de Autor y a la Ley de la Propiedad Industrial, siendo MotoStore el titular del derecho de ejercer las acciones legales correspondientes.
+        </div>
+    </section>
+
+    <!-- 4. PRIVACIDAD Y PROTECCIÓN DE DATOS -->
+    <section class="tc-section" id="privacidad">
+        <div class="tc-section-header">
+            <span class="tc-num">04</span>
+            <h2>Privacidad y Protección de Datos</h2>
+        </div>
+        <p>MotoStore reconoce y respeta el derecho a la privacidad de sus usuarios. El tratamiento de los datos personales recabados a través de esta plataforma se realiza en estricto apego a la <strong style="color:#fb923c">Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)</strong> y su Reglamento.</p>
+
+        <div class="tc-highlight">
+            <h3>Aviso de Privacidad</h3>
+            <p style="color:#94a3b8;font-size:14px;margin:0 0 10px">MotoStore recaba los siguientes datos personales con la finalidad de procesar tus pedidos, gestionar tu cuenta y mejorar tu experiencia de compra:</p>
+            <ul style="margin:0">
+                <li>Nombre de usuario (seudónimo)</li>
+                <li>Información de pago procesada de forma segura a través de PayPal</li>
+                <li>Historial de compras y preferencias de navegación</li>
+            </ul>
+        </div>
+        <p>Los datos personales serán utilizados para las siguientes finalidades:</p>
+        <ul>
+            <li><strong style="color:#f1f5f9">Primarias:</strong> Procesar y gestionar pedidos, confirmar pagos, emitir facturas y tickets electrónicos.</li>
+            <li><strong style="color:#f1f5f9">Secundarias:</strong> Informar sobre promociones, novedades y productos relevantes (con posibilidad de opting-out).</li>
+        </ul>
+        <p>MotoStore no venderá, cederá ni transferirá datos personales a terceros sin el consentimiento previo del titular, salvo en los casos previstos por la LFPDPPP. Los datos son tratados con medidas de seguridad técnicas y administrativas para prevenir su pérdida, alteración o acceso no autorizado.</p>
+        <div class="tc-box">
+            <strong>Derechos ARCO:</strong> En términos de la LFPDPPP, el titular de los datos tiene derecho de Acceso, Rectificación, Cancelación y Oposición (derechos ARCO) respecto al tratamiento de su información. Para ejercerlos, contacta a: <strong>privacidad@motostore.mx</strong>
+        </div>
+    </section>
+
+    <!-- 5. PROCESO DE COMPRA -->
+    <section class="tc-section" id="compra">
+        <div class="tc-section-header">
+            <span class="tc-num">05</span>
+            <h2>Proceso de Compra</h2>
+        </div>
+        <p>MotoStore pone a disposición de sus usuarios un proceso de compra sencillo, transparente y seguro. Los pasos para completar una transacción son los siguientes:</p>
+        <ul>
+            <li><strong style="color:#f1f5f9">Selección:</strong> El usuario elige los productos deseados desde el catálogo y los agrega al carrito de compras.</li>
+            <li><strong style="color:#f1f5f9">Revisión:</strong> En el carrito, el usuario puede verificar los productos, cantidades y precios antes de continuar.</li>
+            <li><strong style="color:#f1f5f9">Pago:</strong> El usuario procede al checkout donde se procesa el pago de forma segura a través de <strong style="color:#fb923c">PayPal</strong>.</li>
+            <li><strong style="color:#f1f5f9">Confirmación:</strong> Una vez aprobado el pago, el sistema genera automáticamente una confirmación de pedido con número de orden.</li>
+            <li><strong style="color:#f1f5f9">Comprobantes:</strong> El usuario puede descargar su factura en PDF y su ticket de compra desde el área de confirmación.</li>
+        </ul>
+        <div class="tc-box">
+            <strong>Importante:</strong> El pedido se considera confirmado y vinculante únicamente una vez recibido y verificado el pago a través de PayPal. MotoStore se reserva el derecho de cancelar pedidos en caso de detectar actividad fraudulenta o errores de inventario, notificando al usuario con antelación.
+        </div>
+        <p>Los métodos de pago aceptados actualmente son: <strong style="color:#f1f5f9">PayPal</strong>. MotoStore no almacena datos bancarios ni de tarjetas de crédito; toda la información financiera es gestionada directamente por PayPal bajo sus propias políticas de seguridad y privacidad.</p>
+    </section>
+
+    <!-- 6. PRECIOS Y PROMOCIONES -->
+    <section class="tc-section" id="precios">
+        <div class="tc-section-header">
+            <span class="tc-num">06</span>
+            <h2>Precios y Promociones</h2>
+        </div>
+        <p>Todos los precios publicados en MotoStore se expresan en <strong style="color:#f1f5f9">Pesos Mexicanos (MXN)</strong> e incluyen el Impuesto al Valor Agregado (IVA) del 16% conforme a la legislación fiscal vigente del SAT.</p>
+        <ul>
+            <li>Los precios están sujetos a cambios sin previo aviso hasta el momento en que el pedido sea confirmado mediante pago.</li>
+            <li>Una vez generada la confirmación de compra, el precio queda fijado y no podrá ser modificado.</li>
+            <li>Las promociones y descuentos especiales aplican únicamente durante el periodo señalado en la publicación correspondiente.</li>
+            <li>Los descuentos no son acumulables salvo indicación expresa en contrario.</li>
+            <li>MotoStore no garantiza la disponibilidad de stock de los productos publicados.</li>
+        </ul>
+        <div class="tc-box">
+            <strong>Nota sobre errores tipográficos:</strong> En caso de error tipográfico o de captura en el precio de algún producto, MotoStore se reserva el derecho de cancelar o corregir el pedido, notificando oportunamente al usuario y ofreciendo el reembolso correspondiente de forma íntegra.
+        </div>
+    </section>
+
+    <!-- 7. ENVÍOS Y ENTREGAS -->
+    <section class="tc-section" id="envios">
+        <div class="tc-section-header">
+            <span class="tc-num">07</span>
+            <h2>Envíos y Entregas</h2>
+        </div>
+        <p>MotoStore realiza envíos exclusivamente dentro del territorio de los Estados Unidos Mexicanos. Las condiciones generales de envío son:</p>
+        <table class="tc-table">
+            <thead>
+                <tr>
+                    <th>Zona</th>
+                    <th>Tiempo estimado</th>
+                    <th>Costo de envío</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Área Metropolitana (Guadalajara, CDMX, Monterrey)</td>
+                    <td>2 – 3 días hábiles</td>
+                    <td>$120 MXN</td>
+                </tr>
+                <tr>
+                    <td>Ciudades principales</td>
+                    <td>3 – 5 días hábiles</td>
+                    <td>$180 MXN</td>
+                </tr>
+                <tr>
+                    <td>Zonas foráneas y rurales</td>
+                    <td>5 – 8 días hábiles</td>
+                    <td>$250 MXN</td>
+                </tr>
+                <tr>
+                    <td>Envío exprés (24 h)</td>
+                    <td>1 día hábil</td>
+                    <td>$350 MXN</td>
+                </tr>
+            </tbody>
+        </table>
+        <ul>
+            <li>Los tiempos de entrega comienzan a contar a partir de la confirmación de pago, en días hábiles.</li>
+            <li>MotoStore no se hace responsable por retrasos ocasionados por causas de fuerza mayor, desastres naturales, huelgas o fallas del servicio de paquetería.</li>
+            <li>El usuario recibirá un número de guía para rastrear su pedido una vez que éste sea enviado.</li>
+            <li>En caso de que el domicilio sea incorrecto o el cliente no esté disponible para recibir el paquete, se realizarán hasta 2 intentos de entrega antes de retornar el pedido.</li>
+        </ul>
+    </section>
+
+    <!-- 8. DEVOLUCIONES Y REEMBOLSOS -->
+    <section class="tc-section" id="devoluciones">
+        <div class="tc-section-header">
+            <span class="tc-num">08</span>
+            <h2>Devoluciones y Reembolsos</h2>
+        </div>
+        <p>MotoStore acepta devoluciones conforme a lo establecido en la <strong style="color:#fb923c">Ley Federal de Protección al Consumidor (LFPC)</strong>. El cliente puede solicitar la devolución de un producto en un plazo máximo de <strong style="color:#f1f5f9">15 días hábiles</strong> contados a partir de la fecha de recepción, siempre que se cumplan las siguientes condiciones:</p>
+        <ul>
+            <li>El producto debe estar en condiciones originales: sin uso, sin daños, con empaque original intacto y todos sus accesorios.</li>
+            <li>Se debe presentar la factura o ticket de compra emitido por MotoStore.</li>
+            <li>Productos con defecto de fabricación comprobado tienen derecho a cambio o reembolso sin costo adicional.</li>
+            <li>No se aceptan devoluciones de productos personalizados, artículos en descuento final o productos de higiene por razones sanitarias.</li>
+        </ul>
+        <div class="tc-highlight">
+            <h3>Procedimiento de devolución</h3>
+            <ul style="margin:0">
+                <li>Contactar a MotoStore mediante <strong style="color:#fb923c">devoluciones@motostore.mx</strong> indicando número de orden y motivo.</li>
+                <li>Esperar la aprobación del equipo de soporte (máximo 2 días hábiles).</li>
+                <li>Enviar el producto al almacén con guía prepagada proporcionada por MotoStore (en caso de defecto).</li>
+                <li>El reembolso se procesará en un plazo de <strong style="color:#f1f5f9">5 a 10 días hábiles</strong> a través de la misma vía de pago original (PayPal).</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 9. RESPONSABILIDAD Y LIMITACIONES -->
+    <section class="tc-section" id="responsabilidad">
+        <div class="tc-section-header">
+            <span class="tc-num">09</span>
+            <h2>Responsabilidad y Limitaciones</h2>
+        </div>
+        <p>MotoStore realiza todos los esfuerzos razonables para garantizar la disponibilidad, precisión y seguridad de su plataforma; sin embargo, no puede garantizar que el servicio esté libre de errores, interrupciones o accesos no autorizados en todo momento.</p>
+        <ul>
+            <li>MotoStore no garantiza la disponibilidad continua del servicio y podrá suspenderlo temporalmente por mantenimiento, actualizaciones o causas de fuerza mayor.</li>
+            <li>No somos responsables por retrasos en la entrega ocasionados por las empresas de paquetería, autoridades aduaneras o causas ajenas a nuestro control.</li>
+            <li>MotoStore no se hace responsable por daños directos, indirectos, incidentales o consecuentes derivados del uso o imposibilidad de uso del sitio.</li>
+            <li>La información de productos (especificaciones técnicas, imágenes) es proporcionada por los fabricantes; MotoStore no garantiza su exactitud absoluta.</li>
+            <li>Los enlaces a sitios externos (como PayPal) están sujetos a las políticas propias de dichos servicios; MotoStore no asume responsabilidad sobre ellos.</li>
+        </ul>
+        <div class="tc-box">
+            <strong>Limitación de responsabilidad:</strong> En ningún caso la responsabilidad total de MotoStore frente a un usuario excederá el monto pagado por el producto o servicio específico que dio lugar al reclamo.
+        </div>
+    </section>
+
+    <!-- 10. CUMPLIMIENTO LEGAL Y NORMATIVO -->
+    <section class="tc-section" id="legal">
+        <div class="tc-section-header">
+            <span class="tc-num">10</span>
+            <h2>Cumplimiento Legal y Normativo</h2>
+        </div>
+        <p>Este sitio cumple con la legislación mexicana aplicable en materia de comercio electrónico. Los presentes Términos y Condiciones son vinculantes conforme a las siguientes leyes y normas:</p>
+        <table class="tc-table">
+            <thead>
+                <tr>
+                    <th>Ordenamiento</th>
+                    <th>Aplicación en MotoStore</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong style="color:#fb923c">Código de Comercio</strong></td>
+                    <td>Regula la validez de contratos electrónicos y mensajes de datos. La aceptación de estos Términos constituye un contrato válido (Art. 89 bis).</td>
+                </tr>
+                <tr>
+                    <td><strong style="color:#fb923c">Ley Federal de Protección al Consumidor (LFPC)</strong></td>
+                    <td>Garantiza los derechos del consumidor en transacciones digitales: información clara, garantías, devoluciones y trato justo.</td>
+                </tr>
+                <tr>
+                    <td><strong style="color:#fb923c">Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)</strong></td>
+                    <td>Regula el tratamiento de datos personales. MotoStore cumple con el principio de licitud, consentimiento, información, calidad, finalidad, lealtad y proporcionalidad.</td>
+                </tr>
+                <tr>
+                    <td><strong style="color:#fb923c">Disposiciones fiscales SAT / IVA</strong></td>
+                    <td>Los precios incluyen IVA del 16%. MotoStore emite facturas electrónicas (CFDI) conforme al Código Fiscal de la Federación y las reglas del SAT.</td>
+                </tr>
+                <tr>
+                    <td><strong style="color:#fb923c">NMX-COE-001-SCFI-2018</strong></td>
+                    <td>Norma Mexicana de Comercio Electrónico que establece los requisitos mínimos para proveedores de bienes y servicios en línea. MotoStore adhiere a sus disposiciones de transparencia, privacidad y protección al consumidor.</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="tc-box">
+            <strong>Jurisdicción:</strong> Para cualquier controversia derivada del uso de MotoStore o de los presentes Términos y Condiciones, las partes se someten a la jurisdicción de los tribunales competentes de la ciudad de <strong>Guadalajara, Jalisco, México</strong>, renunciando expresamente a cualquier otro fuero que por razón de sus domicilios presentes o futuros pudiera corresponderles.
+        </div>
+    </section>
+
+    <!-- 11. MODIFICACIONES Y VIGENCIA -->
+    <section class="tc-section" id="modificaciones">
+        <div class="tc-section-header">
+            <span class="tc-num">11</span>
+            <h2>Modificaciones y Vigencia</h2>
+        </div>
+        <p>MotoStore se reserva el derecho de actualizar, modificar o sustituir estos Términos y Condiciones en cualquier momento, a su exclusiva discreción y sin necesidad de notificación previa individual.</p>
+        <ul>
+            <li>Los cambios entrarán en vigor desde el momento de su publicación en esta página, con indicación de la nueva fecha de elaboración.</li>
+            <li>El uso continuado del sitio después de la publicación de los cambios implica la aceptación de los nuevos Términos.</li>
+            <li>Se recomienda al usuario revisar periódicamente esta página para mantenerse informado de posibles actualizaciones.</li>
+        </ul>
+        <div class="tc-box">
+            <strong>Fecha de última actualización:</strong> 24 de abril de 2026 &mdash; Los presentes Términos y Condiciones son efectivos a partir de dicha fecha y sustituyen cualquier versión anterior.
+        </div>
+    </section>
+
+    <!-- ACCEPTANCE -->
+    <div class="tc-accept">
+        <p>Al utilizar MotoStore confirmas que has leído, comprendido y aceptado en su totalidad los presentes Términos y Condiciones, así como nuestra Política de Privacidad.</p>
+        <a href="index.php">Volver a MotoStore</a>
+    </div>
+
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">MotoStore</div>
+        <div class="footer-links">
+            <a href="index.php">Inicio</a>
+            <a href="galeria.php">Catálogo</a>
+            <a href="terminos.html">Términos y Condiciones</a>
+            <a href="../web2.html">WEB 2</a>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 MotoStore &mdash; Rafael Avila Sanchez &middot; CETI 8F &middot; 22300193<br>
+            Programacion Web 2 &mdash; Mtra. Patricia Torres
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

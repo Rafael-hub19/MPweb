@@ -5,9 +5,9 @@ session_start();
 $loggedIn = isset($_SESSION['usuario']);
 include 'conectbd.php';
 
-$mensaje = '';
-$tipo    = '';
-$xmlFile = 'carrito.xml';
+$mensaje  = '';
+$tipo     = '';
+$jsonFile = 'carrito.json';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'agregar') {
     if (!$loggedIn) {
@@ -30,27 +30,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
                 $mensaje = 'No hay suficiente existencia. Solo quedan ' . $row['existenciaP'] . ' unidades.';
                 $tipo    = 'error';
             } else {
-                if (file_exists($xmlFile)) {
-                    $xml = simplexml_load_file($xmlFile);
-                } else {
-                    $xml = new SimpleXMLElement('<carrito/>');
+                $carrito = array();
+                if (file_exists($jsonFile)) {
+                    $dec = json_decode(file_get_contents($jsonFile), true);
+                    if (is_array($dec)) $carrito = $dec;
                 }
                 $encontrado = false;
-                foreach ($xml->item as $item) {
-                    if ((int)$item->idP == $idP) {
-                        $item->cantidad = (int)$item->cantidad + $cantidad;
+                foreach ($carrito as &$item) {
+                    if ((int)$item['idP'] == $idP) {
+                        $item['cantidad'] = (int)$item['cantidad'] + $cantidad;
                         $encontrado = true;
                         break;
                     }
                 }
+                unset($item);
                 if (!$encontrado) {
-                    $item = $xml->addChild('item');
-                    $item->addChild('idP',      $idP);
-                    $item->addChild('nombre',   htmlspecialchars($row['nombreP']));
-                    $item->addChild('precio',   $row['precioP']);
-                    $item->addChild('cantidad', $cantidad);
+                    $carrito[] = array(
+                        'idP'      => $idP,
+                        'nombre'   => $row['nombreP'],
+                        'precio'   => (float)$row['precioP'],
+                        'cantidad' => $cantidad,
+                    );
                 }
-                $xml->asXML($xmlFile);
+                file_put_contents($jsonFile, json_encode($carrito));
                 $mensaje = htmlspecialchars($row['nombreP']) . ' agregado al carrito.';
                 $tipo    = 'success';
             }
@@ -62,9 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
 }
 
 $cartCount = 0;
-if (file_exists($xmlFile)) {
-    $xmlCart   = simplexml_load_file($xmlFile);
-    $cartCount = count($xmlCart->item);
+if (file_exists($jsonFile)) {
+    $dec = json_decode(file_get_contents($jsonFile), true);
+    if (is_array($dec)) $cartCount = count($dec);
 }
 
 $sqlGal = "SELECT `idP`, `nombreP`, `marcaP`, `tipoImagenP`, `existenciaP`, `precioP` 
@@ -143,6 +145,30 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 mysqli_close($conexion);
 ?>
 </div>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">MotoStore</div>
+        <div class="footer-links">
+            <a href="index.php">Inicio</a>
+            <a href="galeria.php">Cat&aacute;logo</a>
+            <?php if ($loggedIn) { ?>
+                <a href="carrito.php">Carrito</a>
+                <a href="logout.php" onclick="return confirm('&iquest;Seguro que deseas cerrar sesion?')">Salir</a>
+            <?php } else { ?>
+                <a href="login.php">Iniciar Sesi&oacute;n</a>
+                <a href="registro.php">Registro</a>
+            <?php } ?>
+            <a href="terminos.html">T&eacute;rminos y Condiciones</a>
+            <a href="../web2.html">WEB 2</a>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 MotoStore &mdash; Rafael Avila Sanchez &middot; CETI 8F &middot; 22300193<br>
+            Programacion Web 2 &mdash; Mtra. Patricia Torres
+        </div>
+    </div>
+</footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../assets/js/integradora_galeria.js"></script>
 </body>

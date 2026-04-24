@@ -8,10 +8,10 @@ if (!isset($_SESSION['usuario'])) {
 }
 include 'conectbd.php';
 
-$mensaje = '';
-$tipo    = '';
-$moto    = null;
-$xmlFile = 'carrito.xml';
+$mensaje   = '';
+$tipo      = '';
+$moto      = null;
+$jsonFile  = 'carrito.json';
 
 if (isset($_GET['id'])) {
     $id  = intval($_GET['id']);
@@ -37,27 +37,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
                 $mensaje = 'No hay suficiente existencia disponible.';
                 $tipo    = 'error';
             } else {
-                if (file_exists($xmlFile)) {
-                    $xml = simplexml_load_file($xmlFile);
-                } else {
-                    $xml = new SimpleXMLElement('<carrito/>');
+                $carrito = array();
+                if (file_exists($jsonFile)) {
+                    $dec = json_decode(file_get_contents($jsonFile), true);
+                    if (is_array($dec)) $carrito = $dec;
                 }
                 $encontrado = false;
-                foreach ($xml->item as $item) {
-                    if ((int)$item->idP == $idP) {
-                        $item->cantidad = (int)$item->cantidad + $cantidad;
+                foreach ($carrito as &$item) {
+                    if ((int)$item['idP'] == $idP) {
+                        $item['cantidad'] = (int)$item['cantidad'] + $cantidad;
                         $encontrado = true;
                         break;
                     }
                 }
+                unset($item);
                 if (!$encontrado) {
-                    $item = $xml->addChild('item');
-                    $item->addChild('idP',      $idP);
-                    $item->addChild('nombre',   htmlspecialchars($nombre));
-                    $item->addChild('precio',   $rowP['precioP']);
-                    $item->addChild('cantidad', $cantidad);
+                    $carrito[] = array(
+                        'idP'      => $idP,
+                        'nombre'   => $nombre,
+                        'precio'   => (float)$rowP['precioP'],
+                        'cantidad' => $cantidad,
+                    );
                 }
-                $xml->asXML($xmlFile);
+                file_put_contents($jsonFile, json_encode($carrito));
                 $mensaje = 'Producto agregado al carrito exitosamente.';
                 $tipo    = 'success';
             }
@@ -122,6 +124,21 @@ mysqli_close($conexion);
         <a href="carrito.php">Ver Carrito &#128722;</a>
     </div>
 </div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="site-footer">
+    <div class="footer-links">
+        <a href="index.php">Inicio</a>
+        <a href="galeria.php">Cat&aacute;logo</a>
+        <a href="carrito.php">Carrito</a>
+        <a href="terminos.html" target="_blank">T&eacute;rminos y Condiciones</a>
+        <a href="logout.php" onclick="return confirm('&iquest;Seguro que deseas cerrar sesion?')">Salir</a>
+    </div>
+    <div class="footer-copy">
+        &copy; 2026 MotoStore &mdash; Rafael Avila Sanchez &middot; CETI 8F &middot; 22300193<br>
+        Programacion Web 2 &mdash; Mtra. Patricia Torres
+    </div>
+</footer>
 <script src="../../assets/js/integradora_agregar.js"></script>
 </body>
 </html>
