@@ -153,15 +153,9 @@ mysqli_close($conexion);
         <div class="footer-links">
             <a href="index.php">Inicio</a>
             <a href="galeria.php">Cat&aacute;logo</a>
-            <?php if ($loggedIn) { ?>
-                <a href="carrito.php">Carrito</a>
-                <a href="logout.php" onclick="return confirm('&iquest;Seguro que deseas cerrar sesion?')">Salir</a>
-            <?php } else { ?>
-                <a href="login.php">Iniciar Sesi&oacute;n</a>
-                <a href="registro.php">Registro</a>
-            <?php } ?>
+            <a href="carrito.php">Carrito</a>
             <a href="terminos.html">T&eacute;rminos y Condiciones</a>
-            <a href="../web2.html">WEB 2</a>
+            <a href="logout.php" onclick="return confirm('&iquest;Seguro que deseas cerrar sesion?')">Salir</a>
         </div>
         <div class="footer-copy">
             &copy; 2026 MotoStore &mdash; Rafael Avila Sanchez &middot; CETI 8F &middot; 22300193<br>
