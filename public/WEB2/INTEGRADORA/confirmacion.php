@@ -51,13 +51,13 @@ $ivaAmount      = round($totalFinal - $subtotalSinIva, 2);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #0f0f0f; color: #e8e8e8; font-family: 'Outfit', sans-serif; min-height: 100vh; }
+        body { background: #0f0f0f; color: #e8e8e8; font-family: 'Outfit', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
         nav { display:flex; align-items:center; justify-content:space-between; padding:16px 32px; background:#151515; border-bottom:1px solid #222; position:sticky; top:0; z-index:100; }
         .brand { font-family:'Bebas Neue',sans-serif; font-size:28px; color:#ff6b35; text-decoration:none; letter-spacing:2px; }
         .nav-r { display:flex; gap:12px; align-items:center; }
         .btn-n { padding:8px 18px; border-radius:8px; text-decoration:none; font-size:14px; font-weight:600; color:#e8e8e8; background:#222; transition:background .2s; }
         .btn-n:hover { background:#333; }
-        .page { max-width:960px; margin:0 auto; padding:48px 24px; }
+        .page { flex:1; max-width:960px; width:100%; margin:0 auto; padding:48px 24px; }
         .page-lbl { font-size:13px; letter-spacing:3px; color:#27ae60; text-transform:uppercase; margin-bottom:8px; }
         h1 { font-family:'Bebas Neue',sans-serif; font-size:52px; line-height:1; margin-bottom:8px; color:#27ae60; }
         .order-num { font-size:15px; color:#999; margin-bottom:36px; }
@@ -103,7 +103,7 @@ $ivaAmount      = round($totalFinal - $subtotalSinIva, 2);
         .btn-ticket:hover { background:#2a2a2a; color:#e8e8e8; }
         .success-ico { font-size:64px; margin-bottom:12px; }
         .actions { display:flex; flex-wrap:wrap; align-items:center; gap:0; }
-        footer { background:#0d1117; border-top:1px solid rgba(255,255,255,.07); padding:40px 32px; margin-top:32px; }
+        footer { background:#0d1117; border-top:1px solid rgba(255,255,255,.07); padding:40px 32px; }
         .footer-inner { max-width:1100px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:20px; text-align:center; }
         .footer-brand { font-family:'Bebas Neue',sans-serif; font-size:30px; letter-spacing:3px; color:#f97316; }
         .footer-links { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
