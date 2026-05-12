@@ -108,6 +108,13 @@ nav {
 }
 .btn-back-index:hover { color: #e2e8f0; }
 
+/* ===== NAV LOGO ===== */
+.nav-logo {
+    height: 42px;
+    vertical-align: middle;
+    filter: drop-shadow(0 0 6px rgba(255,107,53,0.35));
+}
+
 /* ===== HERO ===== */
 .hero {
     position: relative;
@@ -365,6 +372,8 @@ nav {
     line-height: 1;
     margin-bottom: 18px;
 }
+.cta-content .btn-hero-sec { margin-left: 12px; }
+
 .cta-content p {
     color: #64748b;
     font-size: 16px;

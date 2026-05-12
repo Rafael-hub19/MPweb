@@ -44,7 +44,7 @@ mysqli_close($conexion);
 
 <!-- ========== NAV ========== -->
 <nav>
-    <a class="brand" href="index.php"><img src="img/Logo_motostore.png" alt="MotoStore" style="height:42px;vertical-align:middle;filter:drop-shadow(0 0 6px rgba(255,107,53,0.35));"></a>
+    <a class="brand" href="index.php"><img src="img/Logo_motostore.png" alt="MotoStore" class="nav-logo"></a>
     <div class="nav-r">
         <?php if ($loggedIn) { ?>
             <span class="nav-u">Hola, <span><?php echo htmlspecialchars($_SESSION['usuario']); ?></span></span>
@@ -175,8 +175,8 @@ mysqli_close($conexion);
         </div>
         <div class="feat-box">
             <div class="feat-icon">&#128196;</div>
-            <h3>Carrito XML</h3>
-            <p>Tu carrito se almacena en formato XML estandar, garantizando compatibilidad y persistencia.</p>
+            <h3>Carrito JSON</h3>
+            <p>Tu carrito se almacena en formato JSON estandar, garantizando compatibilidad y persistencia.</p>
         </div>
         <div class="feat-box">
             <div class="feat-icon">&#128272;</div>
@@ -193,7 +193,7 @@ mysqli_close($conexion);
         <p>Explora el catalogo completo con precios y stock actualizados. Inicia sesion para agregar al carrito y realizar tu compra.</p>
         <a href="galeria.php" class="btn-hero-pri">&#128661; Ir al Catalogo</a>
         <?php if (!$loggedIn) { ?>
-            <a href="registro.php" class="btn-hero-sec" style="margin-left:12px">Crear Cuenta Gratis</a>
+            <a href="registro.php" class="btn-hero-sec">Crear Cuenta Gratis</a>
         <?php } ?>
     </div>
 </section>

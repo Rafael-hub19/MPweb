@@ -89,7 +89,7 @@ mysqli_close($conexion);
 <body>
 <main>
 <div class="card">
-    <div class="brand"><img src="img/Logo_motostore.png" alt="MotoStore" style="height:60px;filter:drop-shadow(0 0 6px rgba(255,107,53,0.35));"></div>
+    <div class="brand"><img src="img/Logo_motostore.png" alt="MotoStore" class="brand-logo"></div>
     <h2>Agregar al Carrito</h2>
     <?php if ($mensaje != '') {
         $cls = ($tipo == 'success') ? 'alert-s' : 'alert-e';
@@ -97,8 +97,7 @@ mysqli_close($conexion);
     } ?>
     <?php if ($moto != null) { ?>
     <div class="pinfo">
-        <img src="imagen.php?id=<?php echo $moto['idP']; ?>" alt="<?php echo htmlspecialchars($moto['nombreP']); ?>"
-             style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:12px;display:block;">
+        <img src="imagen.php?id=<?php echo $moto['idP']; ?>" alt="<?php echo htmlspecialchars($moto['nombreP']); ?>" class="pinfo-img">
         <div class="nm"><?php echo htmlspecialchars($moto['nombreP']); ?></div>
         <div class="pr">$<?php echo number_format($moto['precioP'], 0, '.', ','); ?> MXN</div>
     </div>

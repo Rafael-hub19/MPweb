@@ -53,9 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../assets/css/integradora_login.css">
-    <style>
-        .alert-success{padding:11px 14px;border-radius:8px;font-size:14px;margin-bottom:18px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#86efac}
-    </style>
 </head>
 <body>
 <div class="wrap">
@@ -85,11 +82,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="c">Confirmar Contrasena</label>
                 <input type="password" id="c" name="confirmar" placeholder="Repite tu contrasena" required>
             </div>
-            <div class="field" style="flex-direction:row;align-items:flex-start;gap:10px;margin-top:4px;">
-                <input type="checkbox" id="terminos" name="terminos" required style="margin-top:3px;accent-color:#f97316;width:16px;height:16px;flex-shrink:0;">
-                <label for="terminos" style="font-size:13px;color:#94a3b8;font-weight:400;cursor:pointer;">
+            <div class="field-check">
+                <input type="checkbox" id="terminos" name="terminos" required>
+                <label for="terminos">
                     He le&iacute;do y acepto los
-                    <a href="terminos.html" target="_blank" style="color:#f97316;text-decoration:underline;">T&eacute;rminos y Condiciones</a>
+                    <a href="terminos.html" target="_blank">T&eacute;rminos y Condiciones</a>
                     y el Aviso de Privacidad de MotoStore.
                 </label>
             </div>

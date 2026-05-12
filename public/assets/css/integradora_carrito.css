@@ -240,6 +240,20 @@ tr:last-child td { border-bottom: none; }
     transition: background .2s;
 }
 .btn-buy:hover { background: #fb923c; }
+.btn-json {
+    padding: 15px 22px;
+    background: transparent;
+    border: 1px solid rgba(249,115,22,.4);
+    color: #f97316;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: .5px;
+    transition: background .2s, border-color .2s;
+    white-space: nowrap;
+}
+.btn-json:hover { background: rgba(249,115,22,.1); border-color: #f97316; color: #fb923c; }
 
 /* EMPTY */
 .empty {
@@ -328,3 +342,10 @@ footer {
 }
 .footer-links a:hover { color: #f97316; }
 .footer-copy { color: #334155; font-size: 12px; line-height: 1.7; }
+
+/* ===== NAV LOGO ===== */
+.nav-logo {
+    height: 42px;
+    vertical-align: middle;
+    filter: drop-shadow(0 0 6px rgba(255,107,53,0.35));
+}

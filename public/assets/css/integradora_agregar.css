@@ -141,3 +141,19 @@ footer { background: #0d1117; border-top: 1px solid rgba(255,255,255,.07); paddi
 .footer-links a { color: #64748b; text-decoration: none; font-size: 14px; transition: color .2s; }
 .footer-links a:hover { color: #f97316; }
 .footer-copy { color: #334155; font-size: 12px; line-height: 1.7; }
+
+/* ===== BRAND LOGO (dentro de card) ===== */
+.brand-logo {
+    height: 60px;
+    filter: drop-shadow(0 0 6px rgba(255,107,53,0.35));
+}
+
+/* ===== IMAGEN PRODUCTO ===== */
+.pinfo-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    display: block;
+}

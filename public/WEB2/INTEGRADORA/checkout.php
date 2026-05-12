@@ -45,45 +45,11 @@ mysqli_close($conexion);
     <title>Checkout - MotoStore</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #0f0f0f; color: #e8e8e8; font-family: 'Outfit', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
-        nav { display:flex; align-items:center; justify-content:space-between; padding:16px 32px; background:#151515; border-bottom:1px solid #222; position:sticky; top:0; z-index:100; }
-        .brand { font-family:'Bebas Neue',sans-serif; font-size:28px; color:#ff6b35; text-decoration:none; letter-spacing:2px; }
-        .nav-r { display:flex; gap:12px; align-items:center; }
-        .btn-n { padding:8px 18px; border-radius:8px; text-decoration:none; font-size:14px; font-weight:600; color:#e8e8e8; background:#222; transition:background .2s; }
-        .btn-n:hover { background:#333; }
-        .page { flex:1; max-width:1100px; width:100%; margin:0 auto; padding:48px 24px; }
-        .page-lbl { font-size:13px; letter-spacing:3px; color:#ff6b35; text-transform:uppercase; margin-bottom:8px; }
-        h1 { font-family:'Bebas Neue',sans-serif; font-size:48px; line-height:1; margin-bottom:32px; }
-        /* Bootstrap handles the two-column responsive layout */
-        .panel { background:#151515; border:1px solid #222; border-radius:16px; padding:28px; }
-        .panel h2 { font-family:'Bebas Neue',sans-serif; font-size:28px; color:#ff6b35; margin-bottom:20px; }
-        .form-group { margin-bottom:16px; }
-        .form-group label { display:block; font-size:13px; font-weight:600; color:#999; margin-bottom:6px; text-transform:uppercase; letter-spacing:1px; }
-        .form-group input, .form-group textarea { width:100%; background:#1e1e1e; border:1px solid #333; border-radius:8px; padding:10px 14px; color:#e8e8e8; font-family:'Outfit',sans-serif; font-size:15px; }
-        .form-group input:focus, .form-group textarea:focus { outline:none; border-color:#ff6b35; }
-        .form-group textarea { height:80px; resize:vertical; }
-        .order-item { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #222; font-size:15px; }
-        .order-item:last-child { border-bottom:none; }
-        .order-total { display:flex; justify-content:space-between; margin-top:20px; padding-top:16px; border-top:2px solid #ff6b35; font-family:'Bebas Neue',sans-serif; font-size:24px; }
-        .order-total span:last-child { color:#ff6b35; }
-        #paypal-button-container { margin-top:24px; }
-        .alert { background:#2a1a1a; border:1px solid #c0392b; color:#e74c3c; padding:12px 16px; border-radius:8px; margin-bottom:16px; font-size:14px; }
-        .pickup-note { background:#1a1f2a; border:1px solid #2a3f5a; border-radius:10px; padding:14px 18px; margin-bottom:20px; font-size:13px; color:#8ab4d4; line-height:1.6; }
-        .pickup-note strong { color:#ff6b35; }
-        footer { background:#0d1117; border-top:1px solid rgba(255,255,255,.07); padding:40px 32px; }
-        .footer-inner { max-width:1100px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:20px; text-align:center; }
-        .footer-brand { font-family:'Bebas Neue',sans-serif; font-size:30px; letter-spacing:3px; color:#f97316; }
-        .footer-links { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
-        .footer-links a { color:#64748b; text-decoration:none; font-size:14px; transition:color .2s; }
-        .footer-links a:hover { color:#f97316; }
-        .footer-copy { color:#334155; font-size:12px; line-height:1.7; }
-    </style>
+    <link rel="stylesheet" href="../../assets/css/integradora_checkout.css">
 </head>
 <body>
 <nav>
-    <a class="brand" href="index.php"><img src="img/Logo_motostore.png" alt="MotoStore" style="height:42px;vertical-align:middle;filter:drop-shadow(0 0 6px rgba(255,107,53,0.35));"></a>
+    <a class="brand" href="index.php"><img src="img/Logo_motostore.png" alt="MotoStore" class="nav-logo"></a>
     <div class="nav-r">
         <a href="galeria.php" class="btn-n">&#128661; Catalogo</a>
         <a href="carrito.php" class="btn-n">&#8592; Carrito</a>

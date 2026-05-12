@@ -115,7 +115,7 @@ mysqli_close($conexion);
 </div>
 <?php } ?>
 <nav>
-    <a class="brand" href="index.php"><img src="img/Logo_motostore.png" alt="MotoStore" style="height:42px;vertical-align:middle;filter:drop-shadow(0 0 6px rgba(255,107,53,0.35));"></a>
+    <a class="brand" href="index.php"><img src="img/Logo_motostore.png" alt="MotoStore" class="nav-logo"></a>
     <div class="nav-r">
         <a href="index.php" class="btn-n btn-out">Inicio</a>
         <a href="galeria.php" class="btn-n btn-out">&#128661; Catalogo</a>
@@ -174,7 +174,10 @@ mysqli_close($conexion);
                 <div class="s-lbl">Total a pagar</div>
                 <div class="s-tot">$<?php echo number_format($total, 0, '.', ','); ?> MXN</div>
             </div>
-            <a href="checkout.php" class="btn-buy">&#128661; Proceder al Pago</a>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                <a href="ver_json.php" class="btn-json" title="Ver el archivo carrito.json">&#128196; Ver JSON</a>
+                <a href="checkout.php" class="btn-buy">&#128661; Proceder al Pago</a>
+            </div>
         </div>
 
 
@@ -189,6 +192,7 @@ mysqli_close($conexion);
             <a href="index.php">Inicio</a>
             <a href="galeria.php">Cat&aacute;logo</a>
             <a href="carrito.php">Carrito</a>
+            <a href="ver_json.php">Ver JSON</a>
             <a href="terminos.html">T&eacute;rminos y Condiciones</a>
             <a href="logout.php" onclick="return confirm('&iquest;Seguro que deseas cerrar sesion?')">Salir</a>
         </div>

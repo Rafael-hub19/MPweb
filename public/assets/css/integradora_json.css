@@ -1,0 +1,258 @@
+/* =============================================
+   integradora_json.css
+   Programacion Web 2 - Mtra. Patricia Torres
+   Rafael Avila Sanchez - CETI 8F - 22300193
+   ============================================= */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: #080c10;
+    color: #e2e8f0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== NAV ===== */
+nav {
+    background: #0d1117;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 3px;
+    color: #f97316;
+    text-decoration: none;
+}
+
+.nav-r { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.btn-n {
+    padding: 7px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: #e2e8f0;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.08);
+    transition: background .2s;
+}
+.btn-n:hover { background: rgba(255,255,255,.12); color: #f97316; }
+
+/* ===== PAGE ===== */
+.page {
+    flex: 1;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 44px 24px 60px;
+}
+
+.page-lbl {
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #f97316;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 46px;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.sub { color: #64748b; font-size: 14px; margin-bottom: 36px; }
+
+/* ===== JSON PATH ===== */
+.json-path {
+    background: rgba(249,115,22,.07);
+    border: 1px solid rgba(249,115,22,.2);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.json-path span { color: #fb923c; font-weight: 600; word-break: break-all; }
+
+.json-path a {
+    margin-left: auto;
+    color: #f97316;
+    font-size: 12px;
+    text-decoration: none;
+    border: 1px solid rgba(249,115,22,.3);
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+.json-path a:hover { background: rgba(249,115,22,.1); }
+
+/* ===== STATS ===== */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.stat-box {
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 12px;
+    padding: 16px 18px;
+    text-align: center;
+}
+
+.stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: #f97316;
+    line-height: 1;
+}
+
+.stat-lbl {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ===== PANELS ===== */
+.panels { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 720px) { .panels { grid-template-columns: 1fr; } }
+
+.panel {
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.panel-header {
+    background: rgba(249,115,22,.08);
+    border-bottom: 1px solid rgba(249,115,22,.15);
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.panel-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #f1f5f9;
+}
+
+.badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    background: rgba(249,115,22,.15);
+    color: #fb923c;
+    border: 1px solid rgba(249,115,22,.3);
+    letter-spacing: 1px;
+}
+
+/* ===== JSON VIEWER ===== */
+.json-viewer {
+    padding: 18px;
+    overflow-x: auto;
+    max-height: 520px;
+    overflow-y: auto;
+}
+
+pre {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    color: #e2e8f0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0;
+}
+
+.j-key  { color: #93c5fd; }
+.j-str  { color: #86efac; }
+.j-num  { color: #fcd34d; }
+.j-bool { color: #f97316; }
+.j-null { color: #94a3b8; font-style: italic; }
+.j-punc { color: #64748b; }
+
+/* ===== TABLE VIEWER ===== */
+.table-wrap { padding: 0 18px 18px; overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 14px; }
+
+th {
+    background: rgba(249,115,22,.1);
+    color: #fb923c;
+    font-weight: 600;
+    padding: 9px 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(249,115,22,.2);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+td {
+    padding: 9px 12px;
+    border-bottom: 1px solid rgba(255,255,255,.04);
+    color: #94a3b8;
+    vertical-align: middle;
+}
+
+td:first-child { color: #64748b; }
+td.td-nombre { color: #e2e8f0; font-weight: 500; }
+td.td-precio { color: #fcd34d; }
+td.td-sub    { color: #f97316; font-weight: 600; }
+tr:last-child td { border-bottom: none; }
+
+.empty-msg { color: #334155; font-size: 13px; padding: 24px; text-align: center; }
+
+/* ===== COPY BUTTON ===== */
+.copy-btn {
+    background: none;
+    border: 1px solid rgba(255,255,255,.1);
+    color: #64748b;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all .2s;
+}
+.copy-btn:hover { border-color: #f97316; color: #f97316; }
+
+/* ===== FOOTER ===== */
+footer {
+    background: #0d1117;
+    border-top: 1px solid rgba(255,255,255,.07);
+    padding: 32px;
+    text-align: center;
+}
+
+.footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 8px; }
+.footer-links a { color: #64748b; text-decoration: none; font-size: 13px; transition: color .2s; }
+.footer-links a:hover { color: #f97316; }
+.footer-copy { color: #334155; font-size: 12px; line-height: 1.7; }

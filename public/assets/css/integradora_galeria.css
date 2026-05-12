@@ -261,3 +261,10 @@ footer {
 }
 .footer-links a:hover { color: #f97316; }
 .footer-copy { color: #334155; font-size: 12px; line-height: 1.7; }
+
+/* ===== NAV LOGO ===== */
+.nav-logo {
+    height: 42px;
+    vertical-align: middle;
+    filter: drop-shadow(0 0 6px rgba(255,107,53,0.35));
+}

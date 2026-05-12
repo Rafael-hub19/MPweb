@@ -49,72 +49,11 @@ $ivaAmount      = round($totalFinal - $subtotalSinIva, 2);
     <title>Compra Confirmada - MotoStore</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #0f0f0f; color: #e8e8e8; font-family: 'Outfit', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
-        nav { display:flex; align-items:center; justify-content:space-between; padding:16px 32px; background:#151515; border-bottom:1px solid #222; position:sticky; top:0; z-index:100; }
-        .brand { font-family:'Bebas Neue',sans-serif; font-size:28px; color:#ff6b35; text-decoration:none; letter-spacing:2px; }
-        .nav-r { display:flex; gap:12px; align-items:center; }
-        .btn-n { padding:8px 18px; border-radius:8px; text-decoration:none; font-size:14px; font-weight:600; color:#e8e8e8; background:#222; transition:background .2s; }
-        .btn-n:hover { background:#333; }
-        .page { flex:1; max-width:960px; width:100%; margin:0 auto; padding:48px 24px; }
-        .page-lbl { font-size:13px; letter-spacing:3px; color:#27ae60; text-transform:uppercase; margin-bottom:8px; }
-        h1 { font-family:'Bebas Neue',sans-serif; font-size:52px; line-height:1; margin-bottom:8px; color:#27ae60; }
-        .order-num { font-size:15px; color:#999; margin-bottom:36px; }
-        .order-num span { color:#ff6b35; font-weight:700; font-size:18px; }
-        .panel { background:#151515; border:1px solid #222; border-radius:16px; padding:28px; margin-bottom:24px; }
-        .panel h2 { font-family:'Bebas Neue',sans-serif; font-size:24px; color:#ff6b35; margin-bottom:18px; border-bottom:1px solid #2a2a2a; padding-bottom:10px; }
-        .info-item label { display:block; font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:#555; margin-bottom:3px; }
-        .info-item p { font-size:15px; color:#e8e8e8; }
-        /* Tabla de productos */
-        table { width:100%; border-collapse:collapse; }
-        th { text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#555; padding:10px 12px; border-bottom:2px solid #2a2a2a; white-space:nowrap; }
-        td { padding:10px 12px; font-size:14px; border-bottom:1px solid #1e1e1e; color:#e8e8e8; vertical-align:middle; }
-        th:not(:first-child), td:not(:first-child) { text-align:right; }
-        .marca-cell { font-size:12px; color:#888; }
-        /* Filas de totales */
-        .row-subtotal td { border-bottom:none; border-top:2px solid #2a2a2a; color:#aaa; font-size:13px; padding-top:12px; }
-        .row-iva td { border-bottom:none; color:#cccc88; font-size:13px; }
-        .row-iva td:first-child { display:flex; align-items:center; gap:6px; }
-        .iva-badge { background:#333300; color:#cccc00; font-size:10px; font-weight:700; padding:2px 6px; border-radius:4px; letter-spacing:1px; }
-        .row-total td { border-top:2px solid #ff6b35; border-bottom:none; font-family:'Bebas Neue',sans-serif; font-size:22px; padding-top:14px; }
-        .row-total td:last-child { color:#ff6b35; }
-        /* Caja de pickup */
-        .pickup-box { background:#1a2a1a; border:1px solid #2a5a2a; border-radius:12px; padding:18px 22px; margin-bottom:24px; }
-        .pickup-box h3 { font-family:'Bebas Neue',sans-serif; font-size:20px; color:#27ae60; margin-bottom:8px; }
-        .pickup-box p { font-size:14px; color:#8ad48a; line-height:1.6; }
-        .pickup-box p strong { color:#e8e8e8; }
-        /* Caja de referencia */
-        .ref-panel { background:#151515; border:1px solid #222; border-radius:16px; padding:24px 28px; margin-bottom:24px; }
-        .ref-panel h2 { font-family:'Bebas Neue',sans-serif; font-size:24px; color:#ff6b35; margin-bottom:18px; border-bottom:1px solid #2a2a2a; padding-bottom:10px; }
-        .ref-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px 24px; }
-        @media(max-width:600px) { .ref-grid { grid-template-columns:1fr; } }
-        .ref-item label { display:block; font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:#555; margin-bottom:3px; }
-        .ref-item span { font-size:14px; color:#ccccee; font-family:'Courier New', monospace; word-break:break-all; }
-        .ref-item.full { grid-column:1/-1; }
-        .badge-pagado { background:#1a3a1a; color:#4fc04f; font-size:12px; font-weight:700; padding:3px 10px; border-radius:6px; border:1px solid #2a5a2a; font-family:'Outfit',sans-serif; text-transform:uppercase; letter-spacing:1px; }
-        /* Botones */
-        .btn-pri { display:inline-block; background:#ff6b35; color:#fff; padding:14px 28px; border-radius:10px; text-decoration:none; font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:1px; transition:background .2s; margin-bottom:10px; }
-        .btn-pri:hover { background:#e85d2a; color:#fff; }
-        .btn-sec { display:inline-block; padding:14px 28px; border-radius:10px; text-decoration:none; font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:1px; margin-right:10px; margin-bottom:10px; transition:background .2s; }
-        .btn-factura { background:#1a2a1a; border:1px solid #2a5a2a; color:#8ad48a; }
-        .btn-factura:hover { background:#223a22; color:#8ad48a; }
-        .btn-ticket { background:#1e1e1e; border:1px solid #444; color:#e8e8e8; }
-        .btn-ticket:hover { background:#2a2a2a; color:#e8e8e8; }
-        .success-ico { font-size:64px; margin-bottom:12px; }
-        .actions { display:flex; flex-wrap:wrap; align-items:center; gap:0; }
-        footer { background:#0d1117; border-top:1px solid rgba(255,255,255,.07); padding:40px 32px; }
-        .footer-inner { max-width:1100px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:20px; text-align:center; }
-        .footer-brand { font-family:'Bebas Neue',sans-serif; font-size:30px; letter-spacing:3px; color:#f97316; }
-        .footer-links { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
-        .footer-links a { color:#64748b; text-decoration:none; font-size:14px; transition:color .2s; }
-        .footer-links a:hover { color:#f97316; }
-        .footer-copy { color:#334155; font-size:12px; line-height:1.7; }
-    </style>
+    <link rel="stylesheet" href="../../assets/css/integradora_confirmacion.css">
 </head>
 <body>
 <nav>
-    <a class="brand" href="index.php"><img src="img/Logo_motostore.png" alt="MotoStore" style="height:42px;vertical-align:middle;filter:drop-shadow(0 0 6px rgba(255,107,53,0.35));"></a>
+    <a class="brand" href="index.php"><img src="img/Logo_motostore.png" alt="MotoStore" class="nav-logo"></a>
     <div class="nav-r">
         <a href="galeria.php" class="btn-n">&#128661; Catalogo</a>
         <a href="logout.php" onclick="return confirm('&#191;Seguro?')" class="btn-n">Salir</a>
