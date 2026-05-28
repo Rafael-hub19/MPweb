@@ -44,6 +44,84 @@ nav {
 
 .nav-r { display: flex; gap: 12px; align-items: center; }
 
+/* User dropdown */
+.user-dd { position: relative; }
+.user-badge {
+    cursor: pointer;
+    background: rgba(249,115,22,.1);
+    border: 1px solid rgba(249,115,22,.22);
+    border-radius: 50px;
+    padding: 4px 10px 4px 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background .15s, border-color .15s;
+}
+.user-badge:hover { background: rgba(249,115,22,.18); border-color: rgba(249,115,22,.4); }
+.dd-caret { color: #fb923c; font-size: 11px; line-height: 1; transition: transform .2s; }
+.dd-panel {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: #151515;
+    border: 1px solid rgba(249,115,22,.2);
+    border-radius: 14px;
+    padding: 6px;
+    min-width: 190px;
+    box-shadow: 0 20px 48px rgba(0,0,0,.6);
+    z-index: 500;
+}
+.dd-panel.open { display: block; animation: ddSlide .15s ease; }
+@keyframes ddSlide { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+.dd-head { display: flex; align-items: center; gap: 10px; padding: 10px 12px 12px; }
+.dd-head span { color: #fb923c; font-weight: 700; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 130px; }
+.dd-sep { height: 1px; background: rgba(255,255,255,.07); margin: 2px 0 6px; }
+.dd-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 12px;
+    color: #e8e8e8;
+    text-decoration: none;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background .15s;
+    white-space: nowrap;
+}
+.dd-item:hover { background: rgba(249,115,22,.1); color: #fb923c; }
+.dd-out { color: #f87171; }
+.dd-out:hover { background: rgba(239,68,68,.08); color: #f87171; }
+.user-av {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f97316, #fb923c);
+    color: #fff;
+    font-weight: 800;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 0;
+}
+.user-nm {
+    color: #fb923c;
+    font-weight: 600;
+    font-size: 13px;
+    max-width: 110px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+@media (max-width: 600px) {
+    .user-nm { display: none; }
+    .user-badge { padding: 4px; }
+}
+
 .btn-n {
     padding: 8px 18px;
     border-radius: 8px;

@@ -47,10 +47,24 @@ mysqli_close($conexion);
     <a class="brand" href="index.php"><img src="img/Logo_motostore.png" alt="MotoStore" class="nav-logo"></a>
     <div class="nav-r">
         <?php if ($loggedIn) { ?>
-            <span class="nav-u">Hola, <span><?php echo htmlspecialchars($_SESSION['usuario']); ?></span></span>
+            <div class="user-dd" id="userDd">
+                <button class="user-badge" id="userBadgeBtn" type="button">
+                    <div class="user-av"><?php echo strtoupper(mb_substr($_SESSION['usuario'], 0, 1)); ?></div>
+                    <span class="user-nm"><?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
+                    <span class="dd-caret">&#9660;</span>
+                </button>
+                <div class="dd-panel" id="ddPanel">
+                    <div class="dd-head">
+                        <div class="user-av"><?php echo strtoupper(mb_substr($_SESSION['usuario'], 0, 1)); ?></div>
+                        <span><?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
+                    </div>
+                    <div class="dd-sep"></div>
+                    <a href="mis_pedidos.php" class="dd-item">&#128203; Mis Pedidos</a>
+                    <a href="logout.php" onclick="return confirm('&#191;Seguro que deseas cerrar sesion?')" class="dd-item dd-out">Cerrar Sesion</a>
+                </div>
+            </div>
             <a href="galeria.php" class="btn-n btn-cart">&#128661; Catalogo</a>
             <a href="carrito.php" class="btn-n btn-ghost">&#128722; Carrito</a>
-            <a href="logout.php" onclick="return confirm('¿Seguro que deseas cerrar sesion?')" class="btn-n btn-out">Salir</a>
         <?php } else { ?>
             <a href="galeria.php" class="btn-n btn-cart">&#128661; Catalogo</a>
             <a href="login.php" class="btn-n btn-ghost">Iniciar Sesion</a>
@@ -62,11 +76,17 @@ mysqli_close($conexion);
 
 <!-- ========== MOBILE MENU ========== -->
 <div class="mobile-menu" id="mobileMenu">
-    <a href="galeria.php">&#128661; Catalogo</a>
     <?php if ($loggedIn) { ?>
+        <div class="mob-user">
+            <div class="user-av"><?php echo strtoupper(mb_substr($_SESSION['usuario'], 0, 1)); ?></div>
+            <span><?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
+        </div>
+        <a href="galeria.php">&#128661; Catalogo</a>
         <a href="carrito.php">&#128722; Carrito</a>
+        <a href="mis_pedidos.php">&#128203; Mis Pedidos</a>
         <a href="logout.php" onclick="return confirm('¿Seguro que deseas cerrar sesion?')">Salir</a>
     <?php } else { ?>
+        <a href="galeria.php">&#128661; Catalogo</a>
         <a href="login.php">Iniciar Sesion</a>
         <a href="registro.php">Registrarse</a>
     <?php } ?>
@@ -227,6 +247,13 @@ mysqli_close($conexion);
 const toggle = document.getElementById('navToggle');
 const menu   = document.getElementById('mobileMenu');
 toggle.addEventListener('click', () => menu.classList.toggle('open'));
+(function(){
+    var btn = document.getElementById('userBadgeBtn');
+    var panel = document.getElementById('ddPanel');
+    if (!btn) return;
+    btn.addEventListener('click', function(e){ e.stopPropagation(); panel.classList.toggle('open'); });
+    document.addEventListener('click', function(){ panel.classList.remove('open'); });
+})();
 </script>
 </body>
 </html>

@@ -117,9 +117,24 @@ mysqli_close($conexion);
 <nav>
     <a class="brand" href="index.php"><img src="img/Logo_motostore.png" alt="MotoStore" class="nav-logo"></a>
     <div class="nav-r">
+        <div class="user-dd" id="userDd">
+            <button class="user-badge" id="userBadgeBtn" type="button">
+                <div class="user-av"><?php echo strtoupper(mb_substr($_SESSION['usuario'], 0, 1)); ?></div>
+                <span class="user-nm"><?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
+                <span class="dd-caret">&#9660;</span>
+            </button>
+            <div class="dd-panel" id="ddPanel">
+                <div class="dd-head">
+                    <div class="user-av"><?php echo strtoupper(mb_substr($_SESSION['usuario'], 0, 1)); ?></div>
+                    <span><?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
+                </div>
+                <div class="dd-sep"></div>
+                <a href="mis_pedidos.php" class="dd-item">&#128203; Mis Pedidos</a>
+                <a href="logout.php" onclick="return confirm('&#191;Seguro que deseas cerrar sesion?')" class="dd-item dd-out">Cerrar Sesion</a>
+            </div>
+        </div>
         <a href="index.php" class="btn-n btn-out">Inicio</a>
         <a href="galeria.php" class="btn-n btn-out">&#128661; Catalogo</a>
-        <a href="logout.php" onclick="return confirm('¿Seguro que deseas cerrar sesion?')" class="btn-n">Cerrar Sesion</a>
     </div>
 </nav>
 
@@ -204,5 +219,14 @@ mysqli_close($conexion);
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../assets/js/integradora_carrito.js"></script>
+<script>
+(function(){
+    var btn = document.getElementById('userBadgeBtn');
+    var panel = document.getElementById('ddPanel');
+    if (!btn) return;
+    btn.addEventListener('click', function(e){ e.stopPropagation(); panel.classList.toggle('open'); });
+    document.addEventListener('click', function(){ panel.classList.remove('open'); });
+})();
+</script>
 </body>
 </html>
